@@ -1,0 +1,18 @@
+﻿.imgcenter
+{
+    width: 10rem;
+    margin: 0 auto;
+    display: block;
+    margin-top: 2rem;
+    text-align: center;
+}
+.imgcenter img
+{
+    width: 100%;
+}
+.bigblue
+{
+    color: #28abe3;
+    font-size: 1.4rem;
+    font-family: 'Microsoft YaHei';
+}
