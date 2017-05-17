@@ -59,25 +59,25 @@
     <h1 class="title subtitle">审核中的申请</h1>
 </nav>
         <nav class="bar bar-tab">
-    <a class="tab-item active" href="#">
+    <a class="tab-item active external" href="index.htm">
       <span class="icon iconfont icon-shenlingshiyongzhuang"></span>
       <span class="tab-label">申领试用装</span>
     </a>
-    <a class="tab-item" href="send.htm">
+    <a class="tab-item external" href="send.htm">
       <span class="icon iconfont icon-paifaguanli"></span>
       <span class="tab-label">派发管理</span>
     </a>
    
-    <a class="tab-item" href="#">
+    <a class="tab-item external" href="my.htm">
       <span class="icon iconfont icon-wode"></span>
       <span class="tab-label">我的</span>
     </a>
   </nav>
         <div class="content">
             <!-- 这里是页面内容区 -->
-            <div class="page-index">
+            <div class="page-index" id="con_act_list">
                 <div class="card">
-                    <a href="detail.htm" class="external" style="display: inline-block;">
+                    <a href="detail.htm" class="external" style="display: block;">
                         <div valign="bottom" class="card-header color-white no-border">
                             <img class='card-cover' src="imgs/1.jpg" />
                         </div>
@@ -92,7 +92,7 @@
                     </a>
                 </div>
                 <div class="card">
-                    <a href="detail.htm" class="external" style="display: inline-block;">
+                    <a href="detail.htm" class="external" style="display: block;">
                         <div valign="bottom" class="card-header color-white no-border">
                             <img class='card-cover' src="imgs/1.jpg" />
                         </div>
@@ -112,5 +112,13 @@
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            get_taf_act_list();
+
+        })
+    
+    </script>
 </body>
 </html>
