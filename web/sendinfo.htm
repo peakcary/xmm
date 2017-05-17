@@ -1,0 +1,454 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>派发管理</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        label.label-checkbox i.mycheckbox
+        {
+            background: url('imgs/uncheck.png') no-repeat;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-size: 100% 100%;
+        }
+        label.label-checkbox input[type=radio]:checked + .item-media i.mycheckbox
+        {
+            background: url('imgs/check.png') no-repeat;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-size: 100% 100%;
+        }
+        a.icon-shanchu, a.icon-bianji
+        {
+            color: #333;
+        }
+        .mylist-block
+        {
+            background: #fff;
+            padding: 0.7rem 0;
+            margin: 0.7rem 0;
+        }
+        .list-block
+        {
+            margin: 0 0 0.7rem 0;
+        }
+        .content-block
+        {
+            margin: 0.7rem 0 0 0;
+        }
+        .mytitle
+        {
+            font-size: 1rem;
+            text-align: center;
+        }
+        .mysubtitle
+        {
+            font-size: 0.7rem;
+            text-align: center;
+            color: #bfbfbf;
+        }
+        .mystitle
+        {
+            font-size: 0.7rem;
+            text-align: left;
+            color: #bfbfbf;
+            padding: 0 0.75rem;
+            background: #fff;
+            line-height: 2.4;
+        }
+        .imgcon ul
+        {
+            margin: 0 0 0 0.7rem;
+            padding: 0;
+            list-style: none;
+            border: none;
+        }
+        .imgcon ul li
+        {
+            float: left;
+            width: 3rem;
+            height: 3rem;
+            background: #cfcfcf;
+            margin: 0.3rem;
+            margin-left: 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page page-test4" id="test6">
+        <!-- 这里是页面内容区 -->
+        <div class="page-index">
+            <div class="content">
+                <div class="mylist-block">
+                    <div class="mytitle">
+                        咪咪熊试用装申请</div>
+                    <div class="mysubtitle">
+                        2016.04.03 － 2017.04.07</div>
+                    <div class="content-block">
+                        <p style="width: 42%; margin: 0 auto;">
+                            <a href="#" class="button button-round">查看详细信息</a></p>
+                    </div>
+                </div>
+                <div class="mylist-block">
+                    <div class="mystitle">
+                        下载banner</div>
+                    <div class="imgcon">
+                        <ul>
+                            <li>&nbsp;</li>
+                            <li>&nbsp;</li>
+                            <li>&nbsp;</li>
+                            <li>&nbsp;</li>
+                        </ul>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                </div>
+                <div class="list-block">
+                    <div class="mystitle">
+                        签收</div>
+                    <ul>
+                        <li id="listore"><a href="#selstore" class="item-link item-content">
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">
+                                        合同</div>
+                                    <div class="item-after color-gray">
+                                    </div>
+                                </div>
+                            </div>
+                        </a></li>
+                        <li id="libanner"><a class="item-content  item-link" href="#banner">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    试用装</div>
+                            </div>
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="list-block">
+                    <div class="mystitle">
+                        填写PV/UV/发单量</div>
+                    <ul>
+                        <li><a class="item-content  item-link" href="#inputnum">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    2016年10月21日</div>
+                            </div>
+                        </a></li>
+                        <li><a class="item-content  item-link" href="#address">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    2016年10月21日</div>
+                            </div>
+                        </a></li>
+                        <li class="item-content  item-link">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    2016年10月21日</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="list-block">
+                    <div class="mystitle">
+                        填写发单量地区前十名</div>
+                    <ul>
+                        <li><a class="item-content  item-link" href="#inputnum">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    2016年10月21日</div>
+                            </div>
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="list-block">
+                    <div class="mystitle">
+                        上传视频和图片</div>
+                    <ul>
+                        <li><a class="item-content  item-link" href="#inputnum">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    上刊截图</div>
+                            </div>
+                        </a></li>
+                        <li><a class="item-content  item-link" href="#address">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    监测图片</div>
+                            </div>
+                        </a></li>
+                        <li class="item-content  item-link">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    监测视频</div>
+                            </div>
+                        </li>
+                         <li class="item-content  item-link">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    好评视频</div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p>
+                        <a href="success.htm" class="button button-fill button-big">保存</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="selstore">
+        <div class="content">
+            <div class="list-block">
+                <ul>
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    能量数码天猫店</div>
+                                <input type="radio" name="my-radio" value="0" />
+                                <div class="item-media">
+                                    <i class="icon icon-form-checkbox"></i>
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    何塞机械键盘</div>
+                                <input type="radio" name="my-radio" value="1" />
+                                <div class="item-media">
+                                    <i class="icon icon-form-checkbox"></i>
+                                </div>
+                            </div>
+                        </label>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="#test6" class="button
+    button-fill button-big back" onclick="setStore()">确定</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="inputnum">
+        <div class="content">
+            <div class="item-content">
+                <input type="number" placeholder="请输入您要填写的数量" style="width: 100%; line-height: 2rem;
+                    margin-top: 1rem; text-align: center;" />
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="#test6" class="button button-fill button-big back">确定</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="banner">
+        <div class="content">
+            <div class="content-block-title" style="text-transform: none;">
+                banner名称1</div>
+            <div class="list-block">
+                <ul id="ulbanner1">
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    宽</div>
+                                <div class="item-input">
+                                    <input type="number" placeholder="请输入banner的宽度" style="text-align: right" class="kuandu">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title
+    label">
+                                    高</div>
+                                <div class="item-input">
+                                    <input type="number" placeholder="请输入banner的高度" style="text-align: right" class="gaodu">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block-title" style="text-transform: none;">
+                banner名称2</div>
+            <div class="list-block">
+                <ul id="ulbanner2">
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    宽</div>
+                                <div class="item-input">
+                                    <input type="number" placeholder="请输入banner的宽度" style="text-align: right" class="kuandu">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    高</div>
+                                <div class="item-input">
+                                    <input type="number" placeholder="请输入banner的高度" style="text-align: right" class="gaodu">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="#test6" class="button
+    button-fill button-big back" onclick="setBanner()">确定</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="address">
+        <div class="content">
+            <div class="list-block media-list">
+                <ul>
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <input type="radio" name="my-address" />
+                            <div class="item-media">
+                                <i class="icon mycheckbox"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">
+                                        联系人：刘磊</div>
+                                    <div class="item-after">
+                                        联系电话：13671561677</div>
+                                </div>
+                                <div class="item-subtitle">
+                                    江苏省 苏州市 姑苏区 龙吴路287弄570号1301室</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu
+    pull-right">删除</a> <a class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
+                </ul>
+                <p>
+                </p>
+                <ul>
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <input type="radio" name="my-address" />
+                            <div class="item-media">
+                                <i class="icon mycheckbox"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">
+                                        联系人：老猪</div>
+                                    <div class="item-after">
+                                        联系电话：13671561677</div>
+                                </div>
+                                <div class="item-subtitle">
+                                    江苏省 苏州市 姑苏区 龙吴路287弄570号1302室</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu pull-right">删除</a> <a
+                        class="icon iconfont icon-bianji
+    pull-right" href="#">编辑 </a></li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="slinfo.htm#addaddr" class="button button-fill button-big">添加地址</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="page" id="addaddr">
+        <div class="content">
+            <div class="list-block">
+                <ul>
+                    <!-- Text inputs -->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    联系人</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="姓名">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    手机号码</div>
+                                <div class="item-input">
+                                    <input type="number" placeholder="11位手机号码">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="省/市/区">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title
+    label">
+                                    详细地址</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="街道门牌信息">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="slinfo.htm" class="button button-fill button-big back">保存</a></p>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script type="text/javascript"> function setStore() { $("#listore .item-title").text("合作店铺");
+    $("#listore .item-after").text($("input[name='my-radio']:checked").prev().text());
+    } function setBanner() { $("#libanner .item-title").text("banner尺寸"); $("#libanner
+    .item-inner").append('<div class="item-text"><div class="banner1">banner名称1 ' +
+    $('#ulbanner1 .kuandu').val() + '*' + $('#ulbanner1 .gaodu').val() + '</div><div
+    class="banner2">banner名称2 ' + $('#ulbanner2 .kuandu').val() + '*' + $('#ulbanner2
+    .gaodu').val() + '</div></div>'); } </script>
+</body>
+</html>

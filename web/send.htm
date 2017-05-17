@@ -28,24 +28,37 @@
         {
             margin-left: 0 !important;
         }
-         .card-content-inner
+        .card-content-inner
         {
-            color:#333 !important;
+            color: #333 !important;
+        }
+        .syzcard
+        {
+            border-bottom: 1px solid #e0e3e6;
+            margin: 0 0.75rem;
+            padding: 0.5rem 0;
+        }
+        a.card-footer
+        {
+            background: #f9f9f9;
+            text-align: center;
+            display: block;
+            color: #28abe3;
         }
     </style>
 </head>
 <body>
     <!-- 你的html代码 -->
     <div class="page">
-    
         <nav class="bar bar-nav bar-standard">
-  <a class="button button-link button-nav pull-left external" href="audit.htm" data-transition='slide-out'>
+
+  <a class="button button-link button-nav pull-left external" href="complete.htm" data-transition='slide-out'>
       <span class="icon iconfont icon-wanchengdepaifa"></span>
     </a>
-    <a class="button button-link button-nav pull-right" data-transition='slide-out'>
+   <a class="button button-link button-nav pull-right" data-transition='slide-out'>
       <span class="icon iconfont icon-jiantou"></span>
       
-    </a>
+  </a>
     <h1 class="title subtitle">完成的派发</h1>
 </nav>
         <nav class="bar bar-tab">
@@ -67,23 +80,21 @@
             <!-- 这里是页面内容区 -->
             <div class="page-index">
                 <div class="card">
-                <a href="detail.htm" class="external"  style=" display:inline-block;">
+                    <!-- <a href="detail.htm" class="external" style="display: inline-block;">-->
                     <div valign="bottom" class="card-header color-white no-border">
                         <img class='card-cover' src="imgs/1.jpg" />
-                        
                     </div>
                     <div class="card-content">
-                        <div class="card-content-inner">
+                        <div class="card-content-inner syzcard">
                             <span>咪咪熊试用装申请</span> <span style="float: right">12积分/份</span>
                         </div>
+                        <div class="card-content-inner">
+                            <span class="color-gray">适用年龄: 新生 1个月 2个月 尿片规格型号: M ......</span>
+                        </div>
                     </div>
-                    <div class="card-footer">
-                        <span class="color-gray">适用年龄: 新生 1个月 2个月 尿片规格型号: M ......</span>
-                    </div>
-                    
-                    </a>
+                    <a class="card-footer" href="sendinfo.htm">管理</a>
+                    <!--</a>-->
                 </div>
-              
             </div>
         </div>
     </div>
