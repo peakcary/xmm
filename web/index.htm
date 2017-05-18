@@ -36,29 +36,7 @@
 </head>
 <body>
     <!-- 你的html代码 -->
-    <div class="page">
-        <!--  <header class="bar bar-nav">
-        <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
-      <span class="icon icon-refresh"></span>
-      
-    </a>
-    <a class="button button-link button-nav pull-right" href="/demos/card" data-transition='slide-out'>
-      <span class="icon icon-right"></span>
-      
-    </a>
-    <h1 class="title">审核中的申请</h1>
-  </header>-->
-        <nav class="bar bar-nav bar-standard">
-  <a class="button button-link button-nav pull-left external" href="audit.htm" data-transition='slide-out'>
-      <span class="icon iconfont icon-shenlingzhong"></span>
-    </a>
-    <a class="button button-link button-nav pull-right" data-transition='slide-out'>
-      <span class="icon iconfont icon-jiantou"></span>
-      
-    </a>
-    <h1 class="title subtitle">审核中的申请</h1>
-</nav>
-        <nav class="bar bar-tab">
+    <nav class="bar bar-tab">
     <a class="tab-item active external" href="index.htm">
       <span class="icon iconfont icon-shenlingshiyongzhuang"></span>
       <span class="tab-label">申领试用装</span>
@@ -73,9 +51,68 @@
       <span class="tab-label">我的</span>
     </a>
   </nav>
-        <div class="content">
+    <div class="page page-slsyz" id="page-slsyz">
+        <!--  <header class="bar bar-nav">
+        <a class="button button-link button-nav pull-left" href="/demos/card" data-transition='slide-out'>
+      <span class="icon icon-refresh"></span>
+      
+    </a>
+    <a class="button button-link button-nav pull-right" href="/demos/card" data-transition='slide-out'>
+      <span class="icon icon-right"></span>
+      
+    </a>
+    <h1 class="title">审核中的申请</h1>
+  </header>-->
+        <nav class="bar bar-nav bar-standard">
+    <a class="button button-link button-nav pull-left external" href="audit.htm" data-transition='slide-out'>
+      <span class="icon iconfont icon-shenlingzhong"></span>
+    </a>
+    <a class="button button-link button-nav pull-right" data-transition='slide-out'>
+      <span class="icon iconfont icon-jiantou"></span>
+    </a>
+    <h1 class="title subtitle">审核中的申请</h1>
+</nav>
+        <div class="content pull-to-refresh-content page-slsyz infinite-scroll">
+            <style type="text/css">
+                .card
+                {
+                    padding: 0.4rem;
+                    padding-bottom: 0;
+                }
+                .card-header
+                {
+                    padding: 0;
+                    height: 6.5rem;
+                    overflow: hidden;
+                }
+                .card-content-inner
+                {
+                    padding: 0.5rem 0;
+                }
+            </style>
+            <div class="pull-to-refresh-layer">
+                <div class="preloader">
+                </div>
+                <div class="pull-to-refresh-arrow">
+                </div>
+            </div>
             <!-- 这里是页面内容区 -->
-            <div class="page-index" id="con_act_list">
+            <div id="con_act_list" class="list">
+                <!--<a href="detail.htm" class="external">
+                    <div class="card">
+                        <div valign="bottom" class="card-header color-white no-border">
+                            <img class='card-cover' src="imgs/1.jpg" />
+                        </div>
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <span>咪咪熊试用装申请</span><span style="float: right">12积分/份</span>
+                            </div>
+                        </div>
+                        <div class="card-footer card-content-inner">
+                            <span class="color-gray">适用年龄: 新生 1个月 2个月 尿片规格型号: M ......</span>
+                        </div>
+                    </div>
+                </a>-->
                 <!--<div class="card">
                     <a href="detail.htm" class="external" style="display: block;">
                         <div valign="bottom" class="card-header color-white no-border">
@@ -107,6 +144,31 @@
                     </a>
                 </div>-->
             </div>
+            <div class="infinite-scroll-preloader">
+                <div class="preloader">
+                </div>
+            </div>
+            <div style='display: none' id='index-tpl'>
+                <a href='/examples/light7-mall/detail'>
+                    <div class="card color-default">
+                        <div style="" valign="bottom" class="card-header color-white no-border no-padding">
+                            <img class='card-cover' src="//gd4.alicdn.com/bao/uploaded/i4/TB13mgfHpXXXXcVXFXXXXXXXXXX_!!2-item_pic.png_640x640.jpg"
+                                alt="">
+                        </div>
+                        <div class="card-content">
+                            <div class="card-content-inner">
+                                <p>
+                                    My Pillow Classic Series Bed Pillow - Standard/Queen King Pillows</p>
+                                <p class="color-gray">
+                                    @2015/01/15</p>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <span class="link">Like(120)</span> <span class="link">Comments(20)</span>
+                        </div>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
@@ -114,11 +176,31 @@
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
     <script src="js/main.js" type="text/javascript"></script>
     <script type="text/javascript">
+        var loading = false;
+        var pageno = 1;
+
         $(function () {
-            get_taf_act_list();
+            get_taf_act_list(1);
+
+            $(document).on("pageInit", "#page-slsyz", function (e, id, $page) {
+                //下拉刷新
+                $(document).on('refresh', '.page-slsyz', function (e) {
+                    pageno = 1;
+                    get_taf_act_list(1);
+                });
+                //上拉翻页
+                $(document).on('infinite', '.page-slsyz', function () {
+                    if (loading) return;
+                    loading = true;
+                    pageno = pageno + 1;
+                    get_taf_act_list(pageno);
+                });
+            });
+
+            $.init();
 
         })
-    
+
     </script>
 </body>
 </html>

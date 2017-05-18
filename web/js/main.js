@@ -2,19 +2,19 @@
 var domain = 'http://tt.xiongmama.com.cn';
 
 //获取试用装列表
-function get_taf_act_list() {
+function get_taf_act_list(pageno) {
     var api = '/wx/activity/taf_act_list';
     $.ajax({
         type: 'post',
         url: domain + api,
         dataType: 'json',
-        data: { p: 1 },
+        data: { p: pageno },
         success: function (result) {
             if (result.code == 0) {
                 var $data = result.data;
                 var total = $data.count;
                 var $innerdata = $data.data;
-                render_act_list(JSON.stringify($innerdata));
+                render_act_list(pageno, JSON.stringify($innerdata));
             }
         }
     });
@@ -52,13 +52,18 @@ function render_act_detail(data) {
     $('#con_act_detail').html(html);
 }
 
-function render_act_list(data) {
+function render_act_list(pageno, data) {
     var $data = JSON.parse(data);
     var html = '';
-    for (var i = 0; i < $data.length; i++) {
+    if ($data.length < 1) {
+        //解除绑定上拉事件
+        $.detachInfiniteScroll($('#page-slsyz .infinite-scroll'));
+        $('#page-slsyz .infinite-scroll-preloader').hide();
+    } else {
+        for (var i = 0; i < $data.length; i++) {
 
-        html += '<div class="card">'
-                    + '<a href="detail.htm?id=' + $data[i].id + '" class="external" style="display: block;">'
+            html += '<a href="detail.htm?id=' + $data[i].id + '" class="external">'
+                    + '<div class="card">'
                         + '<div valign="bottom" class="card-header color-white no-border">'
                             + '<img class="card-cover" src="' + domain + $data[i].pic + '" />'
                         + '</div>'
@@ -67,13 +72,23 @@ function render_act_list(data) {
                                + ' <span>' + $data[i].name + '</span> <span style="float: right">' + $data[i].gift + '积分/份</span>'
                             + '</div>'
                         + '</div>'
-                        + '<div class="card-footer">'
+                        + '<div class="card-footer card-content-inner">'
                          + '   <span class="color-gray">' + $data[i].remark + '</span>'
                         + '</div>'
-                    + '</a>'
-                + '</div>';
+                    + '</div>'
+                + '</a>';
+        }
+        if (pageno > 1) {
+            $('#con_act_list').append(html);
+        } else {
+            $('#con_act_list').html(html);
+            $.pullToRefreshDone('.page-slsyz');
+            //恢复绑定上拉事件
+            $.attachInfiniteScroll($('#page-slsyz .infinite-scroll'));
+            $('#page-slsyz .infinite-scroll-preloader').show();
+        }
     }
-    $('#con_act_list').html(html);
+    loading = false;
 }
 
 
