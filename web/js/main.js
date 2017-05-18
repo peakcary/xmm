@@ -19,6 +19,38 @@ function get_taf_act_list() {
         }
     });
 }
+//获取试用装详情
+function get_act_detail(id) {
+    var api = '/wx/activity/act_detail';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { id: id },
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data;
+                render_act_detail(JSON.stringify($data));
+            }
+        }
+    });
+}
+
+function render_act_detail(data) {
+    var $data = JSON.parse(data);
+    var html = '';
+    html += '<div class="row" style="background: #fff;">'
+                        + '<div class="col-100">'
+                        + '    <img src="' + domain + $data.pic + '" style="width: 100%;" /></div>'
+                        + '  <div class=" col-100">'
+                         + '  <div class="content-padded">'
+                         + '       <div>' + $data.name + '</div>'
+                         + '<div>' + $data.gift + '积分/份</div>'
+                         + ' <p class="color-gray">' + $data.remark + '</p>'
+                         + '</div></div>'
+                    + '</div>';
+    $('#con_act_detail').html(html);
+}
 
 function render_act_list(data) {
     var $data = JSON.parse(data);
@@ -42,6 +74,13 @@ function render_act_list(data) {
                 + '</div>';
     }
     $('#con_act_list').html(html);
+}
+
+
+function GetQueryString(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) return unescape(r[2]); return null;
 }
 
 function showscore() {
@@ -99,3 +138,4 @@ function showscore() {
 function closeModel() {
     $.closeModal();
 }
+
