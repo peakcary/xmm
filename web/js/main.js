@@ -35,6 +35,138 @@ function get_act_detail(id) {
         }
     });
 }
+//用户登录
+function userlogin(phone, pwd) {
+    var api = '/wx/user/login';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { phone: phone, pass: pwd },
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data;
+
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+//1、注册验证码
+function reg_send_vcode(phone) {
+
+    var api = '/wx/user/reg_send_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { phone: phone },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'register_vcode.htm?phone=' + phone;
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//2、注册账号验证验证码
+function reg_ver_vcode(vcode) {
+    var api = '/wx/user/reg_ver_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { vcode: vcode },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'register_setpwd.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//3、注册账号设置密码
+function reg_set_pass(pwd) {
+    var api = '/wx/user/reg_set_pass';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { pass: pwd },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'login.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//1、找回密码发验证码
+function fp_send_vcode(phone) {
+
+    var api = '/wx/user/fp_send_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { phone: phone },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'forgetmm_vcode.htm?phone=' + phone;
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+//2、找回密码验证验证码
+function fp_ver_vcode(vcode) {
+    var api = '/wx/user/fp_ver_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { vcode: vcode },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'forgetmm_setpwd.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//3、找回密码设置密码
+function fp_set_pass(pwd) {
+    var api = '/wx/user/fp_set_pass';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { pass: pwd },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'login.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
 
 function render_act_detail(data) {
     var $data = JSON.parse(data);
@@ -91,11 +223,17 @@ function render_act_list(pageno, data) {
     loading = false;
 }
 
-
+//获取url传参
 function GetQueryString(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
     if (r != null) return unescape(r[2]); return null;
+}
+
+// 验证手机号
+function isPhoneNo(phone) {
+    var pattern = /^1[34578]\d{9}$/;
+    return pattern.test(phone);
 }
 
 function showscore() {
