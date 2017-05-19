@@ -35,33 +35,29 @@
         .syzcard
         {
             border-bottom: 1px solid #e0e3e6;
-            margin: 0 0.75rem;
-            padding: 0.5rem 0;
         }
-        a.card-footer
+        #con_send_list .card-footer
         {
             background: #f9f9f9;
             text-align: center;
             display: block;
             color: #28abe3;
         }
+        #con_send_list .card-header, #con_send_list .card-content
+        {
+            padding: 0.4rem;
+            overflow: hidden;
+            padding-bottom: 0;
+        }
+        #con_send_list .card-content-inner
+        {
+            padding: 0.5rem 0;
+        }
     </style>
 </head>
 <body>
     <!-- 你的html代码 -->
-    <div class="page">
-        <nav class="bar bar-nav bar-standard">
-
-  <a class="button button-link button-nav pull-left external" href="complete.htm" data-transition='slide-out'>
-      <span class="icon iconfont icon-wanchengdepaifa"></span>
-    </a>
-   <a class="button button-link button-nav pull-right" data-transition='slide-out'>
-      <span class="icon iconfont icon-jiantou"></span>
-      
-  </a>
-    <h1 class="title subtitle">完成的派发</h1>
-</nav>
-        <nav class="bar bar-tab">
+    <nav class="bar bar-tab">
     <a class="tab-item external" href="index.htm">
       <span class="icon iconfont icon-shenlingshiyongzhuang"></span>
       <span class="tab-label">申领试用装</span>
@@ -76,24 +72,47 @@
       <span class="tab-label">我的</span>
     </a>
   </nav>
-        <div class="content">
+    <div class="page page-send" id="page-send">
+        <nav class="bar bar-nav bar-standard">
+
+  <a class="button button-link button-nav pull-left external" href="complete.htm" data-transition='slide-out'>
+      <span class="icon iconfont icon-wanchengdepaifa"></span>
+    </a>
+   <a class="button button-link button-nav pull-right" data-transition='slide-out'>
+      <span class="icon iconfont icon-jiantou"></span>
+      
+  </a>
+    <h1 class="title subtitle">完成的派发</h1>
+</nav>
+        <div class="content pull-to-refresh-content page-send infinite-scroll">
+            <div class="pull-to-refresh-layer">
+                <div class="preloader">
+                </div>
+                <div class="pull-to-refresh-arrow">
+                </div>
+            </div>
             <!-- 这里是页面内容区 -->
-            <div class="page-index">
-                <div class="card">
-                    <!-- <a href="detail.htm" class="external" style="display: inline-block;">-->
-                    <div valign="bottom" class="card-header color-white no-border">
-                        <img class='card-cover' src="imgs/1.jpg" />
-                    </div>
-                    <div class="card-content">
-                        <div class="card-content-inner syzcard">
-                            <span>咪咪熊试用装申请</span> <span style="float: right">12积分/份</span>
+            <div id="con_send_list" class="list">
+                <!--  <a href="sendinfo.htm" class="external">
+                    <div class="card">
+                        <div valign="bottom" class="card-header color-white no-border">
+                            <img class='card-cover' src="imgs/1.jpg" />
                         </div>
-                        <div class="card-content-inner">
-                            <span class="color-gray">适用年龄: 新生 1个月 2个月 尿片规格型号: M ......</span>
+                        <div class="card-content">
+                            <div class="card-content-inner syzcard">
+                                <span>咪咪熊试用装申请</span> <span style="float: right">12积分/份</span>
+                            </div>
+                            <div class="card-content-inner">
+                                <span class="color-gray">适用年龄: 新生 1个月 2个月 尿片规格型号: M ......</span>
+                            </div>
                         </div>
+                        <div class="card-footer">
+                            管理</div>
                     </div>
-                    <a class="card-footer external" href="sendinfo.htm#maininfo">管理</a>
-                    <!--</a>-->
+                </a>-->
+            </div>
+            <div class="infinite-scroll-preloader">
+                <div class="preloader">
                 </div>
             </div>
         </div>
@@ -101,5 +120,33 @@
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=243" type="text/javascript"></script>
+    <script type="text/javascript">
+        var loading = false;
+        var pageno = 1;
+
+        $(function () {
+
+            get_distributed_list(1);
+
+            $(document).on("pageInit", "#page-send", function (e, id, $page) {
+                //下拉刷新
+                $(document).on('refresh', '.page-send', function (e) {
+                    pageno = 1;
+                    get_distributed_list(1);
+                });
+                //上拉翻页
+                $(document).on('infinite', '.page-send', function () {
+                    if (loading) return;
+                    loading = true;
+                    pageno = pageno + 1;
+                    get_distributed_list(pageno);
+                });
+            });
+
+            $.init();
+
+        })
+    </script>
 </body>
 </html>

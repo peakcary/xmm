@@ -1,0 +1,101 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>我的</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .subtitle
+        {
+            text-align: left;
+            padding-left: 2rem;
+            background: #28abe3;
+            color: #fff;
+        }
+        .list-block
+        {
+            margin: 0 0 0.4rem 0 !important;
+        }
+        .color-gray
+        {
+            color: #999 !important;
+        }
+        
+        
+        a.icon-shanchu, a.icon-bianji
+        {
+            color: #333;
+        }
+        .modal-no-buttons .modal-inner
+        {
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page phoneinfo" id="my_pwd_vcode">
+        <div class="content content-padded">
+            <div class="item-title">
+                已向<span class="colphone showmyphone"></span>发送一个验证码。
+            </div>
+            <div class="item-stitle">
+                输入6位验证码
+            </div>
+            <div class="inputcode">
+                <table style="width: 80%; margin: 1rem auto 0;">
+                    <tr>
+                        <td>
+                            <input type="number" id="num1" />
+                        </td>
+                        <td>
+                            <input type="number" id="num2" />
+                        </td>
+                        <td>
+                            <input type="number" id="num3" />
+                        </td>
+                        <td>
+                            <input type="number" id="num4" />
+                        </td>
+                        <td>
+                            <input type="number" id="num5" />
+                        </td>
+                        <td>
+                            <input type="number" id="num6" />
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a id="setpwd_second" href="javascript:;" class="button button-fill button-big">下一步</a></p>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=5" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var phone = GetQueryString('phone');
+            $('#my_pwd_vcode .colphone').text(phone);
+
+            $('#setpwd_second').click(function () {
+                var vcode = $('#num1').val() + $('#num2').val() + $('#num3').val() + $('#num4').val() + $('#num5').val() + $('#num6').val();
+                up_ver_vcode(vcode);
+            });
+        })
+    
+    
+    </script>
+</body>
+</html>

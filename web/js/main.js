@@ -14,6 +14,16 @@ function get_taf_act_list(pageno) {
                 var $data = result.data;
                 var total = $data.count;
                 var $innerdata = $data.data;
+                if ($data.is_last_page == 1) {
+                    //解除绑定上拉事件
+                    $.detachInfiniteScroll($('#page-slsyz .infinite-scroll'));
+                    $('#page-slsyz .infinite-scroll-preloader').hide();
+                } else {
+                    $.pullToRefreshDone('.page-send');
+                    //恢复绑定上拉事件
+                    $.attachInfiniteScroll($('#page-slsyz .infinite-scroll'));
+                    $('#page-slsyz .infinite-scroll-preloader').show();
+                }
                 render_act_list(pageno, JSON.stringify($innerdata));
             }
         }
@@ -35,6 +45,145 @@ function get_act_detail(id) {
         }
     });
 }
+
+//获取派发管理列表
+function get_distributed_list(pageno) {
+    var api = '/wx/activity/distributed_list';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { p: pageno },
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data;
+                var total = $data.count;
+                var $innerdata = $data.data;
+
+                if ($data.is_last_page == 1) {
+                    //解除绑定上拉事件
+                    $.detachInfiniteScroll($('#page-send .infinite-scroll'));
+                    $('#page-send .infinite-scroll-preloader').hide();
+                } else {
+                    $.pullToRefreshDone('.page-send');
+                    //恢复绑定上拉事件
+                    $.attachInfiniteScroll($('#page-send .infinite-scroll'));
+                    $('#page-send .infinite-scroll-preloader').show();
+                }
+
+                render_distributed_list(pageno, JSON.stringify($innerdata));
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=send.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//获取完成派发列表
+function complete_distributed_list(pageno) {
+    var api = '/wx/activity/complete_distributed_list';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { p: pageno },
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data;
+                var total = $data.count;
+                var $innerdata = $data.data;
+                if ($data.is_last_page == 1) {
+                    //解除绑定上拉事件
+                    $.detachInfiniteScroll($('#page-complete .infinite-scroll'));
+                    $('#page-complete .infinite-scroll-preloader').hide();
+                } else {
+                    $.pullToRefreshDone('.page-complete');
+                    //恢复绑定上拉事件
+                    $.attachInfiniteScroll($('#page-complete .infinite-scroll'));
+                    $('#page-complete .infinite-scroll-preloader').show();
+                }
+                render_complete_distributed_list(pageno, JSON.stringify($innerdata));
+            }
+        }
+    });
+}
+
+//获取用户店铺列表
+function get_shop_list() {
+    var api = '/wx/member/shop_list';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { p: pageno },
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data; 
+                var total = $data.count;
+                var $innerdata = $data.data;
+                // render_act_list(pageno, JSON.stringify($innerdata));
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=my.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//添加/编辑用户店铺
+//参数
+//id 编辑写此参数，添加不写
+//shop_name 店铺名称
+//shop_url 店铺URL
+//company 公司名称或负责人姓名
+//create_at 开店日期
+//zoneinfo 所在地
+//customer_sex 受众性别,0:男1:女
+//rank 实时排名,传数字
+//goods 商品数量,传数字
+//cate_id 主营类目ID,传数字
+
+//per_ct 客单价
+//m_pv 月浏览量,传数字
+//m_uv 月独立访客,传数字
+//m_sales 月均销售,传数字
+//m_trades 月均发单,传数字
+//c_age1-c_age6 客户年龄段分布18-25,26-30,31-35,36-40,41-50,50+
+//c_sex_json 客户性别分布,传数组c_sex_json[],男、女、未知
+//season_json 淡旺季分布,传数组season_json[],春、夏、秋、冬,1:旺季2:淡季
+//a1 销售地区前十省份,传数组a1[]
+//a2 销售地区前十城市,传数组a2[]
+//value  销售地区前十占比例,传数组value[]
+//shop_name, shop_url, company, create_at, zoneinfo, customer_sex, rank, goods, cate_id
+
+function save_shop(jsondata) {
+    var api = '/wx/member/save_shop';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { shop_name: shop_name },
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data; 
+                var total = $data.count;
+                var $innerdata = $data.data;
+                // render_act_list(pageno, JSON.stringify($innerdata));
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=my.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
 //用户登录
 function userlogin(phone, pwd) {
     var api = '/wx/user/login';
@@ -46,13 +195,90 @@ function userlogin(phone, pwd) {
         success: function (result) {
             if (result.code == 0) {
                 var $data = result.data;
-
+                localStorage.setItem("logininfo", JSON.stringify($data));
+                var tzurl = GetQueryString('redirect');
+                if (tzurl != undefined) {
+                    window.location.href = tzurl;
+                } else {
+                    window.location.href = 'my.htm';
+                }
             } else {
                 alert(result.msg);
             }
         }
     });
 }
+
+//更换手机发验证码
+function um_send_vcode(phone) {
+    var api = '/wx/member/um_send_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { phone: phone },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'my_vcode.htm?phone=' + phone;
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//更换手机验证验证码
+function um_ver_vcode(vcode, newphone) {
+    var api = '/wx/member/um_ver_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { vcode: vcode },
+        success: function (result) {
+
+            if (result.code == 0) {
+                var data = localStorage.getItem("logininfo");
+                var $logininfo = JSON.parse(data);
+                $logininfo.mobile = newphone;
+
+                localStorage.setItem("logininfo", JSON.stringify($logininfo));
+
+                window.location.href = 'my.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//修改联系人
+function ucperson(name) {
+    var api = '/wx/member/ucperson';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { user_nicename: name },
+        success: function (result) {
+
+            if (result.code == 0) {
+
+                var data = localStorage.getItem("logininfo");
+                var $logininfo = JSON.parse(data);
+                $logininfo.user_nicename = name;
+
+                localStorage.setItem("logininfo", JSON.stringify($logininfo));
+
+                window.location.href = 'my.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
 //1、注册验证码
 function reg_send_vcode(phone) {
 
@@ -82,7 +308,7 @@ function reg_ver_vcode(vcode) {
         dataType: 'json',
         data: { vcode: vcode },
         success: function (result) {
-
+           
             if (result.code == 0) {
                 window.location.href = 'register_setpwd.htm';
             } else {
@@ -168,6 +394,63 @@ function fp_set_pass(pwd) {
     });
 }
 
+//1、修改密码发验证码
+function up_send_vcode(phone) {
+
+    var api = '/wx/member/up_send_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'my_pwd_vcode.htm?phone=' + phone;
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//2、修改密码验证验证码
+function up_ver_vcode(vcode) {
+    var api = '/wx/member/up_ver_vcode';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { vcode: vcode },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'my_newpwd.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//3、修改密码设置密码
+function up_set_pass(pwd) {
+    var api = '/wx/member/up_set_pass';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { pass: pwd },
+        success: function (result) {
+
+            if (result.code == 0) {
+                window.location.href = 'my.htm';
+            } else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
 function render_act_detail(data) {
     var $data = JSON.parse(data);
     var html = '';
@@ -183,18 +466,14 @@ function render_act_detail(data) {
                     + '</div>';
     $('#con_act_detail').html(html);
 }
-
+//展示试用装列表
 function render_act_list(pageno, data) {
     var $data = JSON.parse(data);
     var html = '';
-    if ($data.length < 1) {
-        //解除绑定上拉事件
-        $.detachInfiniteScroll($('#page-slsyz .infinite-scroll'));
-        $('#page-slsyz .infinite-scroll-preloader').hide();
-    } else {
-        for (var i = 0; i < $data.length; i++) {
 
-            html += '<a href="detail.htm?id=' + $data[i].id + '" class="external">'
+    for (var i = 0; i < $data.length; i++) {
+
+        html += '<a href="detail.htm?id=' + $data[i].id + '" class="external">'
                     + '<div class="card">'
                         + '<div valign="bottom" class="card-header color-white no-border">'
                             + '<img class="card-cover" src="' + domain + $data[i].pic + '" />'
@@ -209,17 +488,76 @@ function render_act_list(pageno, data) {
                         + '</div>'
                     + '</div>'
                 + '</a>';
-        }
-        if (pageno > 1) {
-            $('#con_act_list').append(html);
-        } else {
-            $('#con_act_list').html(html);
-            $.pullToRefreshDone('.page-slsyz');
-            //恢复绑定上拉事件
-            $.attachInfiniteScroll($('#page-slsyz .infinite-scroll'));
-            $('#page-slsyz .infinite-scroll-preloader').show();
-        }
     }
+    if (pageno > 1) {
+        $('#con_act_list').append(html);
+    } else {
+        $('#con_act_list').html(html);
+    }
+
+    loading = false;
+}
+
+
+
+//展示派发管理列表数据
+function render_distributed_list(pageno, data) {
+    var $data = JSON.parse(data);
+    var html = '';
+
+    for (var i = 0; i < $data.length; i++) {
+        html += '<a href="sendinfo.htm?id=' + $data[i].id + '" class="external">'
+                    + '<div class="card">'
+                     + '   <div valign="bottom" class="card-header color-white no-border">'
+                     + '       <img class="card-cover" src="' + domain + $data[i].pic + '" />'
+                     + '   </div>'
+                     + '   <div class="card-content">'
+                      + '      <div class="card-content-inner syzcard">'
+                      + '          <span>' + $data[i].name + '</span> <span style="float: right">' + $data[i].gift + '积分/份</span>'
+                      + '      </div>'
+                       + '     <div class="card-content-inner">'
+                          + '      <span class="color-gray">' + $data[i].remark + '</span>'
+                          + '  </div>'
+                       + ' </div>'
+                        + '<div class="card-footer">管理</div></div></a>';
+    }
+    if (pageno > 1) {
+        $('#con_send_list').append(html);
+    } else {
+        $('#con_send_list').html(html);
+    }
+
+    loading = false;
+}
+
+
+
+//展示完成派发列表数据
+function render_complete_distributed_list(pageno, data) {
+    var $data = JSON.parse(data);
+    var html = '';
+
+    for (var i = 0; i < $data.length; i++) {
+        html += '<div class="card">'
+                        + '<div valign="bottom" class="card-header color-white no-border">'
+                            + '<img class="card-cover" src="' + domain + $data[i].pic + '" />'
+                        + '</div>'
+                        + '<div class="card-content">'
+                            + '<div class="card-content-inner">'
+                               + ' <span>' + $data[i].name + '</span> <span style="float: right">' + $data[i].gift + '积分/份</span>'
+                            + '</div>'
+                        + '</div>'
+                        + '<div class="card-footer card-content-inner">'
+                         + '   <span class="color-gray">' + $data[i].remark + '</span>'
+                        + '</div>'
+                    + '</div>';
+    }
+    if (pageno > 1) {
+        $('#con_send_list').append(html);
+    } else {
+        $('#con_complete_list').html(html);
+    }
+
     loading = false;
 }
 

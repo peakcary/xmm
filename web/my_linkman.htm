@@ -1,0 +1,94 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>我的</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .subtitle
+        {
+            text-align: left;
+            padding-left: 2rem;
+            background: #28abe3;
+            color: #fff;
+        }
+        .list-block
+        {
+            margin: 0 0 0.4rem 0 !important;
+        }
+        .color-gray
+        {
+            color: #999 !important;
+        }
+        
+        label.label-checkbox i.mycheckbox
+        {
+            background: url('imgs/uncheck.png') no-repeat;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-size: 100% 100%;
+        }
+        label.label-checkbox input[type=radio]:checked + .item-media i.mycheckbox
+        {
+            background: url('imgs/check.png') no-repeat;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-size: 100% 100%;
+        }
+        a.icon-shanchu, a.icon-bianji
+        {
+            color: #333;
+        }
+        .modal-no-buttons .modal-inner
+        {
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page phoneinfo" id="mylinkman">
+        <div class="content content-padded">
+            <div class="item-title">
+                &nbsp;
+            </div>
+            <div class="item-content">
+                联系人<span class="sepline"></span><div class="item-input" id="input_my_linkman">
+                    <input type="text" placeholder="请填写联系人" />
+                </div>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a id="btnSave" href="javascript:;" class="button button-fill button-big external">确定</a></p>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=3" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var data = localStorage.getItem("logininfo");
+            var $logininfo = JSON.parse(data);
+
+            $('#input_my_linkman input').val($logininfo.user_nicename);
+
+            $('#btnSave').click(function () {
+            
+                ucperson($('#input_my_linkman input').val());
+            });
+        })
+    
+    
+    </script>
+</body>
+</html>
