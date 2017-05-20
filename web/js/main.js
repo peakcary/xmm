@@ -25,6 +25,8 @@ function get_taf_act_list(pageno) {
                     $('#page-slsyz .infinite-scroll-preloader').show();
                 }
                 render_act_list(pageno, JSON.stringify($innerdata));
+            } else {
+                alert(result.msg);
             }
         }
     });
@@ -41,6 +43,39 @@ function get_act_detail(id) {
             if (result.code == 0) {
                 var $data = result.data;
                 render_act_detail(JSON.stringify($data));
+            }
+        }
+    });
+}
+
+//获取审核中试用装列表
+function rev_taf_act_list(pageno) {
+    var api = '/wx/activity/rev_taf_act_list';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { p: pageno },
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data;
+                var total = $data.count;
+                var $innerdata = $data.data;
+                if ($data.is_last_page == 1) {
+                    //解除绑定上拉事件
+                    $.detachInfiniteScroll($('#page-shsyz .infinite-scroll'));
+                    $('#page-shsyz .infinite-scroll-preloader').hide();
+                } else {
+                    $.pullToRefreshDone('.page-shsyz');
+                    //恢复绑定上拉事件
+                    $.attachInfiniteScroll($('#page-shsyz .infinite-scroll'));
+                    $('#page-shsyz .infinite-scroll-preloader').show();
+                }
+                render_rev_taf_act_list(pageno, JSON.stringify($innerdata));
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=my.htm';
+            } else {
+                alert(result.msg);
             }
         }
     });
@@ -111,28 +146,165 @@ function complete_distributed_list(pageno) {
     });
 }
 
+
 //获取用户店铺列表
-function get_shop_list() {
+//flag=0,展示列表
+function get_shop_list(flag, sid) {
     var api = '/wx/member/shop_list';
     $.ajax({
         type: 'post',
         url: domain + api,
         dataType: 'json',
-        data: { p: pageno },
         success: function (result) {
+
             if (result.code == 0) {
-                var $data = result.data; 
-                var total = $data.count;
-                var $innerdata = $data.data;
+                var $data = result.data;
+
+                if (flag == 0) {//申领时选择
+                    render_select_shoplist(JSON.stringify($data), sid);
+
+                } else {
+
+                }
                 // render_act_list(pageno, JSON.stringify($innerdata));
             } else if (result.code == '4001') {
-                window.location.href = 'login.htm?redirect=my.htm';
+                if (flag == 0) {
+                    window.location.href = 'login.htm?redirect=slinfo.htm';
+                } else {
+                    window.location.href = 'login.htm?redirect=my.htm';
+                }
             }
             else {
                 alert(result.msg);
             }
         }
     });
+}
+//获取用户地址列表
+function get_addr_list(flag) {
+    var api = '/wx/member/addr_list';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        success: function (result) {
+
+            if (result.code == 0) {
+                var $data = result.data;
+                render_select_addrlist(JSON.stringify($data), 'address_list');
+
+            } else if (result.code == '4001') {
+                if (flag == 0) {
+                    window.location.href = 'login.htm?redirect=slinfo.htm';
+                } else {
+                    window.location.href = 'login.htm?redirect=my.htm';
+                }
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+//提交申请试用装
+function add_act(data) {
+    var api = '/wx/activity/add_act';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: JSON.parse(data),
+        success: function (result) {
+            if (result.code == 0) {
+                window.location.href = 'success.htm';
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=slinfo.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//添加/编辑/删除用户地址
+//province 省
+//city 市
+//area 区
+//address 地址
+//user_name 联系人
+//user_phone 联系人手机号
+//status 删除写此参数为0，否则不写
+//id 编辑或删除写此参数，添加不写
+
+function save_addr(data, flag) {
+    var api = '/wx/member/save_addr';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: JSON.parse(data),
+        success: function (result) {
+            if (result.code == 0) {
+                var $data = result.data;
+                window.location.href = 'address_list.htm';
+            } else if (result.code == '4001') {
+                if (flag == 0) {
+                    window.location.href = 'login.htm?redirect=slinfo.htm';
+                } else {
+                    window.location.href = 'login.htm?redirect=my.htm';
+                }
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+//获取选择地址
+function getAddr(data) {
+    var type = GetQueryString('type');
+    window.location.href = 'slinf.htm?type=' + type + '&addr=' + data;
+}
+
+//删除地址
+function deleteAddr(data) {
+    $.confirm('确认删除?', function () {
+        var $data = JSON.parse(unescape(data));
+        $data.status = 0;
+
+        $data.province = $data.a1;
+        $data.city = $data.a2;
+        $data.area = $data.a3;
+        $data.address = $data.a4;
+
+        save_addr(JSON.stringify($data), 0);
+    });
+}
+//编辑地址
+function editAddr(data) {
+    window.location.href = 'address.htm?data=' + data;
+}
+//获取地址
+function getAddr_sl(aid, data) {
+    var type = GetQueryString('type');
+    var $tempdata = GetQueryString('tempdata');
+    var tempsldata = {};
+
+    if ($tempdata != undefined && $tempdata != null) {
+        tempsldata = JSON.parse(unescape($tempdata));
+        if (type == 'ht') {
+            tempsldata.addr1 = aid;
+            tempsldata.addr1_obj = JSON.parse(unescape(data)) ;
+        } else {
+            tempsldata.addr2 = aid;
+            tempsldata.addr2_obj = JSON.parse(unescape(data));
+        }
+    }
+
+    url = 'slinfo.htm?tempdata=' + escape(JSON.stringify(tempsldata));
+
+    window.location.href = url;
 }
 
 //添加/编辑用户店铺
@@ -170,14 +342,13 @@ function save_shop(jsondata) {
         data: { shop_name: shop_name },
         success: function (result) {
             if (result.code == 0) {
-                var $data = result.data; 
+                var $data = result.data;
                 var total = $data.count;
                 var $innerdata = $data.data;
                 // render_act_list(pageno, JSON.stringify($innerdata));
             } else if (result.code == '4001') {
                 window.location.href = 'login.htm?redirect=my.htm';
-            }
-            else {
+            } else {
                 alert(result.msg);
             }
         }
@@ -308,7 +479,7 @@ function reg_ver_vcode(vcode) {
         dataType: 'json',
         data: { vcode: vcode },
         success: function (result) {
-           
+
             if (result.code == 0) {
                 window.location.href = 'register_setpwd.htm';
             } else {
@@ -466,6 +637,76 @@ function render_act_detail(data) {
                     + '</div>';
     $('#con_act_detail').html(html);
 }
+//展示店铺列表
+function render_select_shoplist(data, sid) {
+    var $data = JSON.parse(data);
+    var html = '';
+    for (var i = 0; i < $data.length; i++) {
+        if ($data[i].status == "2") {
+            html += '<li><label class="label-checkbox item-content">'
+                           + '<div class="item-inner">'
+                             + '   <div class="item-title">'
+                               + $data[i].shop_name + '</div>'
+                               + ' <input type="radio" ';
+            if (sid == $data[i].id) {
+                html += ' checked="checked" ';
+            }
+
+            html += ' name="sl_select_shop" value="' + $data[i].id + '" />'
+                               + ' <div class="item-media">'
+                               + '     <i class="icon icon-form-checkbox"></i>'
+                               + ' </div>'
+                            + '</div>'
+                        + '</label></li>';
+        }
+    }
+    $('#con_selectstore').html(html);
+    setStore();
+}
+
+
+//展示地址列表
+function render_select_addrlist(data, typename) {
+    var $data = JSON.parse(data);
+    var html = '';
+    var seladdId = GetQueryString('selId');
+
+    for (var i = 0; i < $data.length; i++) {
+
+        html += '<ul><li>'
+                        + '<label class="label-checkbox item-content">'
+                         + '   <input type="radio" ';
+        if (seladdId == $data[i].id) {
+            html += ' checked="checked" ';
+        }
+
+        html += 'name="' + typename + '" value="' + $data[i].id + '" onclick="getAddr_sl(\'' + $data[i].id + '\',\'' + escape(JSON.stringify($data[i])) + '\')"/>'
+                         + '   <div class="item-media">'
+                         + '       <i class="icon mycheckbox"></i>'
+                         + '   </div>'
+                         + '   <div class="item-inner">'
+                          + '      <div class="item-title-row">'
+                           + '         <div class="item-title">联系人：'
+                            + $data[i].user_name + '</div>'
+                             + '       <div class="item-after">联系电话：'
+                             + $data[i].user_phone + '</div>'
+                              + '  </div>'
+                              + '  <div class="item-subtitle">'
+                               + $data[i].a1 + $data[i].a2 + $data[i].a3 + $data[i].a4 + '</div>'
+                            + '</div>'
+                        + '</label>'
+                    + '</li>'
+                    + '<li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right" href="javascript:;" onclick="deleteAddr(\'' + escape(JSON.stringify($data[i])) + '\')">删除</a>'
+                    + '<a class="icon iconfont icon-bianji pull-right" href="javascript:;" onclick="editAddr(\'' + escape(JSON.stringify($data[i])) + '\')">编辑</a></li>'
+                + '</ul><p></p>';
+
+
+    }
+
+    $('#con_' + typename).html(html);
+}
+
+
 //展示试用装列表
 function render_act_list(pageno, data) {
     var $data = JSON.parse(data);
@@ -499,6 +740,35 @@ function render_act_list(pageno, data) {
 }
 
 
+//展示审核中试用装列表
+function render_rev_taf_act_list(pageno, data) {
+    var $data = JSON.parse(data);
+    var html = '';
+
+    for (var i = 0; i < $data.length; i++) {
+
+        html += '<div class="card">'
+                        + '<div valign="bottom" class="card-header color-white no-border">'
+                            + '<img class="card-cover" src="' + domain + $data[i].pic + '" />'
+                        + '</div>'
+                        + '<div class="card-content">'
+                            + '<div class="card-content-inner">'
+                               + ' <span>' + $data[i].name + '</span> <span style="float: right">' + $data[i].gift + '积分/份</span>'
+                            + '</div>'
+                        + '</div>'
+                        + '<div class="card-footer card-content-inner">'
+                         + '   <span class="color-gray">' + $data[i].remark + '</span>'
+                        + '</div>'
+                    + '</div>';
+    }
+    if (pageno > 1) {
+        $('#con_shsyz_list').append(html);
+    } else {
+        $('#con_shsyz_list').html(html);
+    }
+
+    loading = false;
+}
 
 //展示派发管理列表数据
 function render_distributed_list(pageno, data) {
@@ -553,7 +823,7 @@ function render_complete_distributed_list(pageno, data) {
                     + '</div>';
     }
     if (pageno > 1) {
-        $('#con_send_list').append(html);
+        $('#con_complete_list').append(html);
     } else {
         $('#con_complete_list').html(html);
     }

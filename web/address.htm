@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>选择地址</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page" id="page_address">
+        <div class="content">
+            <div class="list-block">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    联系人</div>
+                                <div class="item-input" id="addr_username">
+                                    <input type="text" placeholder="姓名" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    手机号码</div>
+                                <div class="item-input" id="addr_phone">
+                                    <input type="number" placeholder="11位手机号码" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <!--  <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input">
+                                    <input type="text" placeholder="省/市/区">
+                                </div>
+                            </div>
+                        </div>
+                    </li>-->
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    详细地址</div>
+                                <div class="item-input" id="addr_detailaddr">
+                                    <input type="text" placeholder="街道门牌信息" />
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a id="btnsave_address" href="javascript:;" class="button button-fill button-big back">
+                        保存</a></p>
+            </div>
+        </div>
+        <input id="hid_addr_id" type="hidden" />
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=163" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var initdata = GetQueryString("data");
+            if (initdata != undefined && initdata != null) {
+                var $data = JSON.parse(unescape(initdata));
+                $('#addr_username input').val($data.user_name);
+                $('#addr_phone input').val($data.user_phone);
+                $('#addr_detailaddr input').val($data.a4);
+                $('#hid_addr_id').val($data.id);
+            }
+
+            $('#btnsave_address').click(function () {
+                var data = {};
+                data.user_name = $('#addr_username input').val();
+                data.user_phone = $('#addr_phone input').val();
+                data.address = $('#addr_detailaddr input').val();
+                data.province = '00';
+                data.city = '00';
+                data.area = '00';
+                data.id = $('#hid_addr_id').val();
+
+                save_addr(JSON.stringify(data), 0);
+            });
+        })
+    
+    </script>
+</body>
+</html>

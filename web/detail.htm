@@ -12,7 +12,10 @@
     <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
-        #con_act_detail{ padding-bottom:2.2rem;}
+        #con_act_detail
+        {
+            padding-bottom: 2.2rem;
+        }
     </style>
 </head>
 <body>
@@ -20,9 +23,8 @@
     <div class="page page-test4" id="test5">
         <!-- 这里是页面内容区 -->
         <div class="page-index">
-            <div id="con_act_detail" class="content" >
-               
-                 <!--   <div class="row" style="background: #fff;">
+            <div id="con_act_detail" class="content">
+                <!--   <div class="row" style="background: #fff;">
                         <div class="col-100">
                             <img src="imgs/2.jpg" style="width: 100%;" />
                         </div>
@@ -39,8 +41,7 @@
                             </div>
                         </div>
                     </div>-->
-
-                   <!-- <div class="content-block-title" style="text-align: center;">
+                <!-- <div class="content-block-title" style="text-align: center;">
                         详情介绍</div>
                     <div class="col-100">
                         <img src="imgs/3.jpg" style="width: 100%;" />
@@ -52,10 +53,9 @@
                         <p style="width: 42%; margin: 0 auto;">
                             <a href="#" class="button button-round">查看全部评价</a></p>
                     </div>-->
-               
             </div>
             <div class="bar bar-footer">
-                <a class="button button-link external" href="slinfo.htm">申领 </a>
+                <a id="btn_slsyz" class="button button-link" href="javascript:;">申领 </a>
             </div>
         </div>
     </div>
@@ -63,11 +63,14 @@
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
     <script src="js/main.js" type="text/javascript"></script>
-       <script type="text/javascript">
-           $(function () {
-               get_act_detail(GetQueryString('id'));
-
-           })
+    <script type="text/javascript">
+        $(function () {
+            var detailId = GetQueryString('id');
+            get_act_detail(detailId);
+            $('#btn_slsyz').click(function () {
+                window.location.href = 'slinfo.htm?id=' + detailId;
+            });
+        })
     
     </script>
 </body>

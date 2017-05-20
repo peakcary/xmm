@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>选择地址</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        label.label-checkbox i.mycheckbox
+        {
+            background: url('imgs/uncheck.png') no-repeat;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-size: 100% 100%;
+        }
+        label.label-checkbox input[type=radio]:checked + .item-media i.mycheckbox
+        {
+            background: url('imgs/check.png') no-repeat;
+            width: 1.1rem;
+            height: 1.1rem;
+            background-size: 100% 100%;
+        }
+        a.icon-shanchu, a.icon-bianji
+        {
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page" id="page_address_list">
+        <div class="content">
+            <div class="list-block  media-list" id='con_address_list'>
+                <!-- <ul>
+                    <li>
+                    <a href='index.htm' class='external'>
+                        <label class="label-checkbox item-content">
+                            <input type="radio" name="my-address" checked="checked" />
+                            <div class="item-media">
+                                <i class="icon mycheckbox"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">
+                                        联系人：刘磊</div>
+                                    <div class="item-after">
+                                        联系电话：13671561677</div>
+                                </div>
+                                <div class="item-subtitle">
+                                    江苏省 苏州市 姑苏区 龙吴路287弄570号1301室</div>
+                            </div>
+                        </label></a>
+                    </li>
+                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right">删除</a> <a
+                        class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
+                </ul>
+                <p>
+                </p>
+                <ul>
+                    <li>
+                        <label class="label-checkbox item-content">
+                            <input type="radio" name="my-address" />
+                            <div class="item-media">
+                                <i class="icon mycheckbox"></i>
+                            </div>
+                            <div class="item-inner">
+                                <div class="item-title-row">
+                                    <div class="item-title">
+                                        联系人：老猪</div>
+                                    <div class="item-after">
+                                        联系电话：13671561677</div>
+                                </div>
+                                <div class="item-subtitle">
+                                    江苏省 苏州市 姑苏区 龙吴路287弄570号1302室</div>
+                            </div>
+                        </label>
+                    </li>
+                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right">删除</a> <a
+                        class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
+                </ul>-->
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="address.htm" class="button button-fill button-big external">添加地址</a></p>
+            </div>
+        </div>
+    </div>
+  
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=211" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            get_addr_list(0);
+            
+        })
+    </script>
+</body>
+</html>

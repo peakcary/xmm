@@ -11,34 +11,46 @@
     <link rel="stylesheet" href="light7/css/light7.min.css" />
     <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
     <link href="css/main.css" rel="stylesheet" type="text/css" />
-    <style type="text/css">
-        .button-link
-        {
-            color: #fff !important;
-        }
-        .button-nav.pull-left
-        {
-            margin-left: 0 !important;
-        }
-       
-    </style>
 </head>
 <body>
     <!-- 你的html代码 -->
-    <div class="page page-test4" id="test4">
-        <div class="content">
+    <div class="page page-shsyz" id="page-shsyz">
+        <div class="content pull-to-refresh-content page-shsyz infinite-scroll">
+            <style type="text/css">
+                .card
+                {
+                    padding: 0.4rem;
+                    padding-bottom: 0;
+                }
+                .card-header
+                {
+                    padding: 0;
+                    height: 6.5rem;
+                    overflow: hidden;
+                }
+                .card-content-inner
+                {
+                    padding: 0.5rem 0;
+                }
+            </style>
+            <div class="pull-to-refresh-layer">
+                <div class="preloader">
+                </div>
+                <div class="pull-to-refresh-arrow">
+                </div>
+            </div>
             <!-- 这里是页面内容区 -->
-            <div class="page-index">
-                <div class="card">
+            <div id="con_shsyz_list" class="list">
+               <!-- <div class="card">
                     <div valign="bottom" class="card-header color-white no-border">
                         <img class='card-cover' src="imgs/1.jpg" />
                     </div>
                     <div class="card-content">
                         <div class="card-content-inner">
-                            <span>咪咪熊试用装申请</span> <span style="float: right">12积分/份</span>
+                            <span>咪咪熊试用装申请</span><span style="float: right">12积分/份</span>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer card-content-inner">
                         <span class="color-gray">适用年龄: 新生 1个月 2个月 尿片规格型号: M ......</span>
                     </div>
                 </div>
@@ -48,22 +60,50 @@
                     </div>
                     <div class="card-content">
                         <div class="card-content-inner">
-                            <span>咪咪熊试用装申请</span> <span style="float: right">12积分/份</span>
+                            <span>咪咪熊试用装申请</span><span style="float: right">12积分/份</span>
                         </div>
                     </div>
-                    <div class="card-footer">
+                    <div class="card-footer card-content-inner">
                         <span class="color-gray">适用年龄: 新生 1个月 2个月 尿片规格型号: M ......</span>
                     </div>
+                </div>-->
+            </div>
+            <div class="infinite-scroll-preloader">
+                <div class="preloader">
                 </div>
-              
             </div>
         </div>
-      
     </div>
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=200" type="text/javascript"></script>
+    <script type="text/javascript">
+        var loading = false;
+        var pageno = 1;
 
+        $(function () {
+            rev_taf_act_list(1);
 
+            $(document).on("pageInit", "#page-shsyz", function (e, id, $page) {
+                //下拉刷新
+                $(document).on('refresh', '.page-shsyz', function (e) {
+                    pageno = 1;
+                    rev_taf_act_list(1);
+                });
+                //上拉翻页
+                $(document).on('infinite', '.page-shsyz', function () {
+                    if (loading) return;
+                    loading = true;
+                    pageno = pageno + 1;
+                    rev_taf_act_list(pageno);
+                });
+            });
+
+            $.init();
+
+        })
+
+    </script>
 </body>
 </html>

@@ -10,7 +10,7 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <link rel="stylesheet" href="light7/css/light7.min.css" />
     <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
-    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" /> 
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
         label.label-checkbox i.mycheckbox
@@ -47,18 +47,19 @@
                     <ul>
                         <li id="listore"><a href="#selstore" class="item-link item-content">
                             <div class="item-inner">
-                            <div class="item-title-row">
-                                <div class="item-title">
-                                    选择店铺</div>
-                                <div class="item-after color-gray">
-                                </div></div>
+                                <div class="item-title-row">
+                                    <div class="item-title">
+                                        选择店铺</div>
+                                    <div class="item-after color-gray">
+                                    </div>
+                                </div>
                             </div>
                         </a></li>
                         <li id="libanner"><a class="item-content  item-link" href="#banner">
                             <div class="item-inner">
                                 <div class="item-title">
                                     填写banner尺寸</div>
-                               <!-- <div class="item-text">
+                                <!-- <div class="item-text">
                                     <div class="banner1">
                                         </div>
                                     <div class="banner2">
@@ -66,29 +67,44 @@
                                 </div>-->
                             </div>
                         </a></li>
-                        <li><a class="item-content  item-link" href="#inputnum">
+                        <li id="lislnum"><a class="item-content  item-link" href="#inputnum">
                             <div class="item-inner">
-                                <div class="item-title">
-                                    填写申领数量</div>
+                                <div class="item-title-row">
+                                    <div class="item-title">
+                                        填写申领数量</div>
+                                    <div class="item-after color-gray">
+                                    </div>
+                                </div>
                             </div>
                         </a></li>
-                        <li><a class="item-content  item-link" href="#address">
-                            <div class="item-inner">
+                        <li><a class="item-content  item-link" onclick="sel_ht_addr()" href="javascript:;">
+                            <div class="item-inner" id="con_htaddr">
                                 <div class="item-title">
                                     填写合同邮寄地址</div>
+                                <!-- <div class="item-text">
+                                    <div class="item-title-row">
+                                        <div class="item-title">
+                                            联系人：刘磊</div>
+                                        <div class="item-after">
+                                            联系电话：13671561677</div>
+                                    </div>
+                                    <div class="item-subtitle">
+                                        江苏省 苏州市 姑苏区 龙吴路287弄570号1301室</div>
+                                </div>-->
                             </div>
                         </a></li>
-                        <li class="item-content  item-link">
-                            <div class="item-inner">
+                        <li><a class="item-content  item-link" onclick="sel_syz_addr()" href="javascript:;">
+                            <div class="item-inner" id="con_syzaddr">
                                 <div class="item-title">
                                     填写试用装邮寄地址</div>
                             </div>
-                        </li>
+                        </a></li>
                     </ul>
                 </div>
                 <div class="content-block">
                     <p>
-                        <a href="success.htm" class="button button-fill button-big">提交审核</a></p>
+                        <a href="javascript:;" class="button button-fill button-big" onclick="submitApprove()">
+                            提交审核</a></p>
                 </div>
             </div>
         </div>
@@ -96,8 +112,8 @@
     <div class="page" id="selstore">
         <div class="content">
             <div class="list-block">
-                <ul>
-                    <li>
+                <ul id='con_selectstore'>
+                    <!--  <li>
                         <label class="label-checkbox item-content">
                             <div class="item-inner">
                                 <div class="item-title">
@@ -120,24 +136,26 @@
                                 </div>
                             </div>
                         </label>
-                    </li>
+                    </li>-->
                 </ul>
             </div>
             <div class="content-block">
                 <p>
-                    <a href="#test6" class="button button-fill button-big back" onclick="setStore()">确定</a></p>
+                    <a href="javascript:;" class="button button-fill button-big back" onclick="setStore()">
+                        确定</a></p>
             </div>
         </div>
     </div>
     <div class="page" id="inputnum">
         <div class="content">
-            <div class="item-content">
+            <div class="item-content" id="sl_num">
                 <input type="number" placeholder="请输入您要填写的数量" style="width: 100%; line-height: 2rem;
                     margin-top: 1rem; text-align: center;" />
             </div>
             <div class="content-block">
                 <p>
-                    <a href="#test6" class="button button-fill button-big back">确定</a></p>
+                    <a href="javascript:;" class="button button-fill button-big back" onclick="setSlNum()">
+                        确定</a></p>
             </div>
         </div>
     </div>
@@ -153,7 +171,7 @@
                             <div class="item-inner">
                                 <div class="item-title label">
                                     宽</div>
-                                <div class="item-input" >
+                                <div class="item-input">
                                     <input type="number" placeholder="请输入banner的宽度" style="text-align: right" class="kuandu">
                                 </div>
                             </div>
@@ -203,14 +221,15 @@
             </div>
             <div class="content-block">
                 <p>
-                    <a href="#test6" class="button button-fill button-big back" onclick="setBanner()">确定</a></p>
+                    <a href="javascript:;" class="button button-fill button-big" onclick="setBanner(this)">
+                        确定</a></p>
             </div>
         </div>
     </div>
-    <div class="page" id="address">
+    <div class="page" id="ht_address">
         <div class="content">
-            <div class="list-block  media-list">
-                <ul>
+            <div class="list-block  media-list" id='con_ht_address'>
+                <!-- <ul>
                     <li>
                         <label class="label-checkbox item-content">
                             <input type="radio" name="my-address" />
@@ -255,86 +274,143 @@
                     </li>
                     <li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right">删除</a> <a
                         class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
-                </ul>
+                </ul>-->
             </div>
             <div class="content-block">
                 <p>
-                    <a href="slinfo.htm#addaddr" class="button button-fill button-big">添加地址</a></p>
+                    <a href="address.htm" class="button button-fill button-big external">添加地址</a></p>
             </div>
         </div>
     </div>
-    <div class="page" id="addaddr">
+    <div class="page" id="syz_address">
         <div class="content">
-            <div class="list-block">
-                <ul>
-                    <!-- Text inputs -->
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    联系人</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="姓名">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    手机号码</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="11位手机号码">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    选择地区</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="省/市/区">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    详细地址</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="街道门牌信息">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+            <div class="list-block  media-list" id='con_syz_address'>
             </div>
             <div class="content-block">
                 <p>
-                    <a href="slinfo.htm" class="button button-fill button-big back">保存</a></p>
+                    <a href="address.htm" class="button button-fill button-big external">添加地址</a></p>
             </div>
         </div>
     </div>
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=1169" type="text/javascript"></script>
     <script type="text/javascript">
+
+        var tempdata = {};
+
+        $(function () {
+            var id = GetQueryString("id");
+            tempdata.id = id;
+
+            var $tempdata = GetQueryString('tempdata');
+
+            if ($tempdata != undefined && $tempdata != null) {
+
+                tempdata = JSON.parse(unescape($tempdata));
+
+                get_shop_list(0, tempdata.sid);
+
+
+                $("#sl_num input").val(tempdata.plan);
+                setSlNum();
+
+                var banner1 = tempdata.banner1;
+                var banner2 = tempdata.banner2;
+                if (banner1 != undefined && banner1 != null && banner2 != undefined && banner2 != null) {
+                    if (banner1.indexOf('*') > -1) {
+                        $('#ulbanner1 .kuandu').val(banner1.split('*')[0]);
+                        $('#ulbanner1 .gaodu').val(banner1.split('*')[1]);
+                    }
+                    if (banner2.indexOf('*') > -1) {
+                        $('#ulbanner2 .kuandu').val(banner2.split('*')[0]);
+                        $('#ulbanner2 .gaodu').val(banner2.split('*')[1]);
+                    }
+                    setBanner();
+                }
+
+                set_ht_address();
+                set_syz_address();
+
+            } else {
+                get_shop_list(0);
+            }
+
+        })
+
+        function set_ht_address() {
+            //合同地址
+            if (tempdata.addr1_obj != undefined && tempdata.addr1_obj != null) {
+                var $addrdata1 = tempdata.addr1_obj;
+                var html = '<div class="item-title">合同邮寄地址</div>'
+                               + '<div class="item-text">'
+                                   + '<div class="item-title-row">'
+                                     + '<div class="item-title">联系人：' + $addrdata1.user_name + '</div>'
+                                      + '<div class="item-after">联系电话：' + $addrdata1.user_phone + '</div>'
+                                   + '</div>'
+                                   + '<div class="item-subtitle">' + $addrdata1.a1 + $addrdata1.a2 + $addrdata1.a3 + $addrdata1.a4 + '</div>'
+                '</div>';
+                $('#con_htaddr').html(html);
+            }
+        }
+
+        function set_syz_address() {
+            //试用装地址
+            if (tempdata.addr2_obj != undefined && tempdata.addr2_obj != null) {
+                var $addrdata2 = tempdata.addr2_obj;
+                var html = '<div class="item-title">试用装邮寄地址</div>'
+                               + '<div class="item-text">'
+                                   + '<div class="item-title-row">'
+                                     + '<div class="item-title">联系人：' + $addrdata2.user_name + '</div>'
+                                      + '<div class="item-after">联系电话：' + $addrdata2.user_phone + '</div>'
+                                   + '</div>'
+                                   + '<div class="item-subtitle">' + $addrdata2.a1 + $addrdata2.a2 + $addrdata2.a3 + $addrdata2.a4 + '</div>'
+                '</div>';
+                $('#con_syzaddr').html(html);
+            }
+        }
+
+        function sel_ht_addr() {
+            window.location.href = "address_list.htm?type=ht&selId=" + tempdata.addr1 + "&tempdata=" + escape(JSON.stringify(tempdata));
+        }
+        function sel_syz_addr() {
+            window.location.href = "address_list.htm?type=syz&selId=" + tempdata.addr2 + "&tempdata=" + escape(JSON.stringify(tempdata));
+        }
+
         function setStore() {
             $("#listore .item-title").text("合作店铺");
-            $("#listore .item-after").text($("input[name='my-radio']:checked").prev().text());
+            $("#listore .item-after").text($("input[name='sl_select_shop']:checked").prev().text());
+            tempdata.sid = $("input[name='sl_select_shop']:checked").val();
         }
-        function setBanner() {
-            $("#libanner .item-title").text("banner尺寸");
-            $("#libanner .item-inner").append('<div class="item-text"><div class="banner1">banner名称1  '
-            + $('#ulbanner1 .kuandu').val() + '*' + $('#ulbanner1 .gaodu').val()
+        function setSlNum() {
+            $("#lislnum .item-title").text("申领数量");
+            $("#lislnum .item-after").text($("#sl_num input").val());
+            tempdata.plan = $("#sl_num input").val();
+        }
+        function setBanner(obj) {
+            var kd1 = $('#ulbanner1 .kuandu').val();
+            var gd1 = $('#ulbanner1 .gaodu').val();
+            var kd2 = $('#ulbanner2 .kuandu').val();
+            var gd2 = $('#ulbanner2 .gaodu').val();
+            if ($.trim(kd1) != '' && $.trim(kd2) != '' && $.trim(gd1) != '' && $.trim(gd2) != '') {
+
+                $("#libanner .item-inner").html('<div class="item-title">banner尺寸</div><div class="item-text"><div class="banner1">banner名称1  '
+            + kd1 + '*' + gd1
             + '</div><div class="banner2">banner名称2  '
-            + $('#ulbanner2 .kuandu').val() + '*' + $('#ulbanner2 .gaodu').val()
-            + '</div></div>'); 
+            + kd2 + '*' + gd2
+            + '</div></div>');
+                tempdata.banner1 = kd1 + '*' + gd1;
+                tempdata.banner2 = kd2 + '*' + gd2;
+                $(obj).addClass('back');
+            } else {
+                $(obj).removeClass('back');
+                alert('不能为空！');
+            }
+        }
+
+        function submitApprove() {
+            add_act(JSON.stringify(tempdata));
         }
     </script>
 </body>
