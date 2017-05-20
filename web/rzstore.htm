@@ -34,586 +34,198 @@
 </head>
 <body>
     <!-- 你的html代码 -->
-    <div class="page">
+    <div class="page" id="page_rzstore">
         <!-- 这里是页面内容区 -->
         <div class="page-index">
             <div class="content">
                 <div class="list-block media-list">
                     <ul>
-                        <li id="listore"><a href="#basicinfo" class="item-link item-content">
+                        <li id="li_store_basic"><a class="item-link item-content external" href="store_basic.htm">
                             <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">
-                                        基本信息</div>
-                                    <div class="item-after color-gray">
-                                    </div>
+                                <div class="item-title">
+                                    基本信息</div>
+                                <div class="item_content">
                                 </div>
                             </div>
                         </a></li>
-                        <li id="libanner"><a class="item-content  item-link" href="#storedata">
+                        <li id="li_store_dpdata"><a class="item-content  item-link external" href="store_dpdata.htm">
                             <div class="item-inner">
                                 <div class="item-title">
                                     店铺数据</div>
+                                <div class="item_content">
+                                </div>
                             </div>
                         </a></li>
-                        <li><a class="item-content  item-link" href="#nldfb">
+                        <li id="li_store_kqage"><a class="item-content  item-link external" href="store_kqage.htm">
                             <div class="item-inner">
                                 <div class="item-title">
                                     客群年龄段分布</div>
+                                <div class="item_content">
+                                </div>
                             </div>
                         </a></li>
-                        <li><a class="item-content  item-link" href="#sexrate">
+                        <li id="li_store_sexbl"><a class="item-content  item-link external" href="store_sexbl.htm">
                             <div class="item-inner">
                                 <div class="item-title">
                                     性别比例</div>
+                                <div class="item_content">
+                                </div>
                             </div>
                         </a></li>
-                        <li><a class="item-content  item-link" href="#dwjfb">
+                        <li id="li_store_dwjfb"><a class="item-content  item-link external" href="store_dwjfb.htm">
                             <div class="item-inner">
                                 <div class="item-title">
                                     淡旺季分布</div>
+                                <div class="item_content">
+                                </div>
                             </div>
                         </a></li>
-                        <li><a class="item-content  item-link" href="#salepm">
+                        <li id="li_store_salepm"><a class="item-content  item-link external" href="store_salepm.htm">
                             <div class="item-inner">
                                 <div class="item-title">
                                     销售地区前十</div>
+                                <div class="item_content">
+                                </div>
                             </div>
                         </a></li>
                     </ul>
                 </div>
                 <div class="content-block">
                     <p>
-                        <a href="mystore.htm" class="button button-fill button-big external">提交</a></p>
+                        <a href="javascript:;" class="button button-fill button-big external" onclick="submit_newstore()">
+                            提交</a></p>
                 </div>
-            </div>
-        </div>
-    </div>
-    <div class="page" id="basicinfo">
-        <div class="content">
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    店铺名</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入店铺名" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    店铺网址</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入店铺网址" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    公司名称</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入公司名称" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    开店日期</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请选择开店日期" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    所在地区</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入所在地区" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    受众</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入受众" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    店铺实时排名</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入店铺实时排名" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    商品数量</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入商品数量" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    主营类目</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入主营类目" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <p>
-                    <a href="rzstore.htm#rzdp" class="button button-fill button-big back" onclick="setStore()">
-                        保存</a></p>
-            </div>
-        </div>
-    </div>
-    <div class="page" id="storedata">
-        <div class="content">
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    客单价</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入客单量" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    月均浏览量</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入月均浏览量" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    月均独立访客数</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入月均独立访客数" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    月均销量</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入月均销量" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    月均发单量</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="请输入月均发单量" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <p>
-                    <a href="rzstore.htm#rzdp" class="button button-fill button-big back" onclick="setStore()">
-                        保存</a></p>
-            </div>
-        </div>
-    </div>
-    <div class="page" id="nldfb">
-        <div class="content">
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    18-25岁</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    26-30岁</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    31-35岁</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    36-40岁</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    41-50岁</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    大于50岁</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <p>
-                    <a href="rzstore.htm#rzdp" class="button button-fill button-big back" onclick="setStore()">
-                        保存</a></p>
-            </div>
-        </div>
-    </div>
-    <div class="page" id="sexrate">
-        <div class="content">
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    男</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    女</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    未知</div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <p>
-                    <a href="rzstore.htm#rzdp" class="button button-fill button-big back" onclick="setStore()">
-                        保存</a></p>
-            </div>
-        </div>
-    </div>
-    <div class="page" id="dwjfb">
-        <div class="content">
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    春</div>
-                                <label class="label-checkbox">
-                                    <div class="item-input">
-                                        <input type="radio" name="radio_chun" />
-                                        <div class="item-media">
-                                            <i class="icon icon-form-checkbox"></i>旺季
-                                        </div>
-                                    </div>
-                                </label>
-                                <label class="label-checkbox">
-                                    <div class="item-input">
-                                        <input type="radio" name="radio_chun" />
-                                        <div class="item-media">
-                                            <i class="icon icon-form-checkbox"></i>淡季
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-inner">
-                                <div class="item-title label">
-                                    夏</div>
-                                <label class="label-checkbox">
-                                    <div class="item-input">
-                                        <input type="radio" name="radio_xia" />
-                                        <div class="item-media">
-                                            <i class="icon icon-form-checkbox"></i>旺季
-                                        </div>
-                                    </div>
-                                </label>
-                                <label class="label-checkbox">
-                                    <div class="item-input">
-                                        <input type="radio" name="radio_xia" />
-                                        <div class="item-media">
-                                            <i class="icon icon-form-checkbox"></i>淡季
-                                        </div>
-                                    </div>
-                                </label>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <p>
-                    <a href="rzstore.htm#rzdp" class="button button-fill button-big back" onclick="setStore()">
-                        保存</a></p>
-            </div>
-        </div>
-    </div>
-    <div class="page" id="salepm">
-        <div class="content">
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">1</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">2</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">3</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">4</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">5</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">6</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">7</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">8</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">9</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="item-content">
-                            <div class="item-media">
-                                <span class="seqnum">10</span></div>
-                            <div class="item-inner myitem-inner">
-                                <div class="item-title label">
-                                    <input type="number" placeholder="选择地区" style="text-align: left"></div>
-                                <div class="item-input">
-                                    <input type="number" placeholder="%" style="text-align: right">
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <p>
-                    <a href="rzstore.htm#rzdp" class="button button-fill button-big back" onclick="setStore()">
-                        保存</a></p>
             </div>
         </div>
     </div>
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=0231" type="text/javascript"></script>
     <script type="text/javascript">
-        function setStore() {
-            $("#listore .item-title").text("合作店铺");
-            $("#listore .item-after").text($("input[name='my-radio']:checked").prev().text());
+
+        function submit_newstore() {
+            var storedata = localStorage.getItem("storedata");
+            save_shop(storedata);
         }
-        function setBanner() {
-            $("#libanner .item-title").text("banner尺寸");
-            $("#libanner .item-inner").append('<div class="item-text"><div class="banner1">banner名称1  '
-            + $('#ulbanner1 .kuandu').val() + '*' + $('#ulbanner1 .gaodu').val()
-            + '</div><div class="banner2">banner名称2  '
-            + $('#ulbanner2 .kuandu').val() + '*' + $('#ulbanner2 .gaodu').val()
-            + '</div></div>');
-        }
+
+
+        $(function () {
+            var storedata = localStorage.getItem("storedata");
+            if (storedata == undefined || storedata == null) {
+                storedata = {};
+                storedata.id = "";
+                localStorage.setItem("storedata", JSON.stringify(storedata));
+            } else {
+                var $storedata = JSON.parse(storedata);
+                //基本信息
+                if ($storedata.shop_name != undefined && $storedata.shop_name != null && $.trim($storedata.shop_name) != '') {
+                    var html = '';
+                    html += "<div>" + $storedata.shop_name + "</div>";
+                    html += "<div>" + $storedata.shop_url + "</div>";
+                    html += "<div>" + $storedata.company + "</div>";
+                    html += "<div>" + $storedata.create_at + " 开店</div>";
+                    html += "<div>所在地 " + $storedata.zoneinfo + "</div>";
+                    html += "<div>受众为 " + $storedata.customer_sex + "</div>";
+                    html += "<div>店铺排名第" + $storedata.rank + "</div>";
+                    html += "<div>宝贝" + $storedata.goods + "件</div>";
+                    html += "<div>主营：" + $storedata.cate_id + "</div>";
+
+                    $('#li_store_basic .item_content').html(html);
+                }
+
+                //店铺数据
+                if ($storedata.per_ct != undefined && $storedata.per_ct != null && $.trim($storedata.per_ct) != '') {
+                    var html = '';
+
+                    html += "<div>客单价" + $storedata.per_ct + "元</div>";
+                    html += "<div>月均浏览量" + $storedata.m_pv + "人次</div>";
+                    html += "<div>月独立访客数" + $storedata.m_uv + "人</div>";
+                    html += "<div>月均销量" + $storedata.m_sales + "件</div>";
+                    html += "<div>月均发单量 " + $storedata.m_trades + "件</div>";
+
+                    $('#li_store_dpdata .item_content').html(html);
+                }
+
+                //客群年龄段分布
+                if ($storedata.c_age1 != undefined && $storedata.c_age1 != null && $.trim($storedata.c_age1) != '') {
+                    var html = '';
+
+                    html += "<div>18-25岁：" + $storedata.c_age1 + "%</div>";
+                    html += "<div>26-30岁：" + $storedata.c_age2 + "%</div>";
+                    html += "<div>31-35岁：" + $storedata.c_age3 + "%</div>";
+                    html += "<div>36-40岁：" + $storedata.c_age4 + "%</div>";
+                    html += "<div>41-50岁：" + $storedata.c_age5 + "%</div>";
+                    html += "<div>大于50岁：" + $storedata.c_age6 + "%</div>";
+
+                    $('#li_store_kqage .item_content').html(html);
+                }
+
+                //性别比例
+                if ($storedata.c_sex_json != undefined && $storedata.c_sex_json != null && $.trim($storedata.c_sex_json) != '') {
+                    var html = '';
+                    var array = $storedata.c_sex_json;
+                    html += "<div>男：" + array[0] + "%</div>";
+                    html += "<div>女：" + array[1] + "%</div>";
+                    html += "<div>未知：" + array[2] + "%</div>";
+
+                    $('#li_store_sexbl .item_content').html(html);
+                }
+
+                //淡旺季分布
+                if ($storedata.season_json != undefined && $storedata.season_json != null && $.trim($storedata.season_json) != '') {
+                    var html = '';
+                    var array = $storedata.season_json;
+                    var array_1 = new Array(); //旺季
+                    var array_2 = new Array(); //淡季
+
+                    for (var i = 0; i < array.length; i++) {
+                        if (i == 0) {
+                            if (array[i] == "1") {
+                                array_1.push("春");
+                            } else {
+                                array_2.push("春");
+                            }
+                        } else if (i == 1) {
+                            if (array[i] == "1") {
+                                array_1.push("夏");
+                            } else {
+                                array_2.push("夏");
+                            }
+                        } else if (i == 2) {
+                            if (array[i] == "1") {
+                                array_1.push("秋");
+                            } else {
+                                array_2.push("秋");
+                            }
+                        } else if (i == 3) {
+                            if (array[i] == "1") {
+                                array_1.push("冬");
+                            } else {
+                                array_2.push("冬");
+                            }
+                        }
+                    }
+                    html += "<div>旺季：" + array_1.join('、') + "</div>";
+                    html += "<div>淡季：" + array_2.join('、') + "</div>";
+
+                    $('#li_store_dwjfb .item_content').html(html);
+                }
+                //销售地区前十
+                if ($storedata.a1 != undefined && $storedata.a1 != null && $.trim($storedata.a1) != '') {
+                    var html = '';
+                    var array_a1 = $storedata.a1;
+                    var array_value = $storedata.value;
+                    for (var i = 0; i < array_a1.length; i++) {
+                        html += "<div>" + (i + 1) + "、" + array_a1[i] + "：" + array_value[i] + "%</div>";
+                    }
+
+                    $('#li_store_salepm .item_content').html(html);
+                }
+
+            }
+
+        })
     </script>
 </body>
 </html>

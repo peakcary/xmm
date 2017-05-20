@@ -92,6 +92,11 @@
             }
 
             $('#btnsave_address').click(function () {
+                var phone = $('#addr_phone input').val();
+                if (!isPhoneNo(phone)) {
+                    alert('手机号格式错误！');
+                    return;
+                }
                 var data = {};
                 data.user_name = $('#addr_username input').val();
                 data.user_phone = $('#addr_phone input').val();
@@ -102,6 +107,7 @@
                 data.id = $('#hid_addr_id').val();
 
                 save_addr(JSON.stringify(data), 0);
+
             });
         })
     

@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>客群年龄段分布</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .seqnum
+        {
+            display: inline-block;
+            width: 1rem;
+            background: #28abe3;
+            color: #fff;
+            font-size: 0.8rem;
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            border-radius: 50% 50%;
+        }
+        .myitem-inner
+        {
+            margin: 0 0.2rem !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page" id="page_kqage">
+        <div class="content">
+            <div class="list-block">
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    18-25岁</div>
+                                <div class="item-input" id="kqage_c_age1">
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    26-30岁</div>
+                                <div class="item-input" id="kqage_c_age2">
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    31-35岁</div>
+                                <div class="item-input" id="kqage_c_age3">
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    36-40岁</div>
+                                <div class="item-input" id="kqage_c_age4">
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    41-50岁</div>
+                                <div class="item-input" id="kqage_c_age5">
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    大于50岁</div>
+                                <div class="item-input" id="kqage_c_age6">
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="javascript:;" class="button button-fill button-big" onclick="save_kqage()">
+                        保存</a></p>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var storedata = localStorage.getItem("storedata");
+            var $storedata = JSON.parse(storedata);
+            //店铺数据
+            if ($storedata.c_age1 != undefined && $storedata.c_age1 != null && $.trim($storedata.c_age1) != '') {
+                $('#kqage_c_age1 input').val($storedata.c_age1);
+                $('#kqage_c_age2 input').val($storedata.c_age2);
+                $('#kqage_c_age3 input').val($storedata.c_age3);
+                $('#kqage_c_age4 input').val($storedata.c_age4);
+                $('#kqage_c_age5 input').val($storedata.c_age5);
+                $('#kqage_c_age6 input').val($storedata.c_age6);
+            }
+        })
+
+        function save_kqage() {
+            var data = localStorage.getItem("storedata");
+            var storedata = JSON.parse(data);
+
+            storedata.c_age1 = $('#kqage_c_age1 input').val();
+            storedata.c_age2 = $('#kqage_c_age2 input').val();
+            storedata.c_age3 = $('#kqage_c_age3 input').val();
+            storedata.c_age4 = $('#kqage_c_age4 input').val();
+            storedata.c_age5 = $('#kqage_c_age5 input').val();
+            storedata.c_age6 = $('#kqage_c_age6 input').val();
+
+            localStorage.setItem("storedata", JSON.stringify(storedata));
+
+            window.location.href = 'rzstore.htm';
+
+        }
+    </script>
+</body>
+</html>

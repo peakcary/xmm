@@ -148,7 +148,8 @@ function complete_distributed_list(pageno) {
 
 
 //获取用户店铺列表
-//flag=0,展示列表
+//flag=0 申领列表,1 我的店铺页面 展示列表
+//sid默认值
 function get_shop_list(flag, sid) {
     var api = '/wx/member/shop_list';
     $.ajax({
@@ -164,7 +165,7 @@ function get_shop_list(flag, sid) {
                     render_select_shoplist(JSON.stringify($data), sid);
 
                 } else {
-
+                    render_mystore_shoplist(JSON.stringify($data));
                 }
                 // render_act_list(pageno, JSON.stringify($innerdata));
             } else if (result.code == '4001') {
@@ -181,7 +182,9 @@ function get_shop_list(flag, sid) {
     });
 }
 //获取用户地址列表
-function get_addr_list(flag) {
+function get_addr_list() {
+    var type = GetQueryString("type");
+
     var api = '/wx/member/addr_list';
     $.ajax({
         type: 'post',
@@ -191,10 +194,13 @@ function get_addr_list(flag) {
 
             if (result.code == 0) {
                 var $data = result.data;
-                render_select_addrlist(JSON.stringify($data), 'address_list');
-
+                if (type == 'ht' || type == 'syz') {
+                    render_select_addrlist(JSON.stringify($data), 'address_list');
+                } else {
+                    render_select_myaddr(JSON.stringify($data), 'address_list');
+                }
             } else if (result.code == '4001') {
-                if (flag == 0) {
+                if (type == 'ht' || type == 'syz') {
                     window.location.href = 'login.htm?redirect=slinfo.htm';
                 } else {
                     window.location.href = 'login.htm?redirect=my.htm';
@@ -219,6 +225,27 @@ function add_act(data) {
                 window.location.href = 'success.htm';
             } else if (result.code == '4001') {
                 window.location.href = 'login.htm?redirect=slinfo.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//获取主营类目下拉框
+function shop_cate_list() {
+    var api = '/wx/member/shop_cate_list';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        success: function (result) {
+            alert(JSON.stringify(result));
+            if (result.code == 0) {
+
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=my.htm';
             }
             else {
                 alert(result.msg);
@@ -295,7 +322,7 @@ function getAddr_sl(aid, data) {
         tempsldata = JSON.parse(unescape($tempdata));
         if (type == 'ht') {
             tempsldata.addr1 = aid;
-            tempsldata.addr1_obj = JSON.parse(unescape(data)) ;
+            tempsldata.addr1_obj = JSON.parse(unescape(data));
         } else {
             tempsldata.addr2 = aid;
             tempsldata.addr2_obj = JSON.parse(unescape(data));
@@ -339,13 +366,14 @@ function save_shop(jsondata) {
         type: 'post',
         url: domain + api,
         dataType: 'json',
-        data: { shop_name: shop_name },
+        data: JSON.parse(jsondata),
         success: function (result) {
             if (result.code == 0) {
                 var $data = result.data;
-                var total = $data.count;
-                var $innerdata = $data.data;
-                // render_act_list(pageno, JSON.stringify($innerdata));
+                //清空对象
+                localStorage.removeItem("storedata")
+
+                window.location.href = 'mystore.htm';
             } else if (result.code == '4001') {
                 window.location.href = 'login.htm?redirect=my.htm';
             } else {
@@ -637,12 +665,42 @@ function render_act_detail(data) {
                     + '</div>';
     $('#con_act_detail').html(html);
 }
+
+//展示我的店铺
+function render_mystore_shoplist(data) {
+    var $data = JSON.parse(data);
+    var html_rzz = '';
+    var html_yrz = '';
+    for (var i = 0; i < $data.length; i++) {
+        if ($data[i].status == "1") { //审核中
+            html_rzz += '<li class="item-content">'
+                        + '<div class="item-inner">'
+                           + ' <div class="item-title-row">'
+                              + '  <div class="item-title">'
+                                + '    <span>' + $data[i].shop_name + '</span><a href="#" class="button button-round" style="background: #ff9700;'
+                                 + '       display: inline-block; color: #fff; border: none;"><span class="icon iconfont icon-shenhezhong"></span>'
+                                   + '     审核中</a></div></div></div></li>'
+        } else if ($data[i].status == "2") {//已入驻
+            html_yrz += '<li class="item-content">'
+                        + '<div class="item-inner">'
+                            + '<div class="item-title-row">'
+                               + ' <span class="item-title">' + $data[i].shop_name + '</span><a href="#" class="button button-round" style="background: #28abe3;'
+                                   + ' display: inline-block; color: #fff; border: none;"><span class="icon iconfont icon-yiruzhu"></span>'
+                                   + ' 已入驻</a></div></div></li>';
+        }
+    }
+
+    $('#con_store_rzz').html(html_rzz);
+    $('#con_store_yrz').html(html_yrz);
+}
+
+
 //展示店铺列表
 function render_select_shoplist(data, sid) {
     var $data = JSON.parse(data);
     var html = '';
     for (var i = 0; i < $data.length; i++) {
-        if ($data[i].status == "2") {
+        if ($data[i].status == "2") {//已入驻
             html += '<li><label class="label-checkbox item-content">'
                            + '<div class="item-inner">'
                              + '   <div class="item-title">'
@@ -663,7 +721,38 @@ function render_select_shoplist(data, sid) {
     $('#con_selectstore').html(html);
     setStore();
 }
+//我的地址管理
+function render_select_myaddr(data, typename) {
+    var $data = JSON.parse(data);
+    var html = '';
 
+    for (var i = 0; i < $data.length; i++) {
+
+        html += '<ul><li>'
+                         + '   <div class="item-media">'
+                         + '       <i class="icon mycheckbox"></i>'
+                         + '   </div>'
+                         + '   <div class="item-inner">'
+                          + '      <div class="item-title-row">'
+                           + '         <div class="item-title">联系人：'
+                            + $data[i].user_name + '</div>'
+                             + '       <div class="item-after">联系电话：'
+                             + $data[i].user_phone + '</div>'
+                              + '  </div>'
+                              + '  <div class="item-subtitle">'
+                               + $data[i].a1 + $data[i].a2 + $data[i].a3 + $data[i].a4 + '</div>'
+                            + '</div>'
+                    + '</li>'
+                    + '<li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right" href="javascript:;" onclick="deleteAddr(\'' + escape(JSON.stringify($data[i])) + '\')">删除</a>'
+                    + '<a class="icon iconfont icon-bianji pull-right" href="javascript:;" onclick="editAddr(\'' + escape(JSON.stringify($data[i])) + '\')">编辑</a></li>'
+                + '</ul><p></p>';
+
+
+    }
+
+    $('#con_' + typename).html(html);
+
+}
 
 //展示地址列表
 function render_select_addrlist(data, typename) {
