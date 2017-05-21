@@ -1,5 +1,7 @@
-﻿<!DOCTYPE html>
+
+<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,35 +15,52 @@
     <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
-        label.label-checkbox i.mycheckbox
-        {
+        label.label-checkbox i.mycheckbox {
             background: url('imgs/uncheck.png') no-repeat;
             width: 1.1rem;
             height: 1.1rem;
             background-size: 100% 100%;
         }
-        label.label-checkbox input[type=radio]:checked + .item-media i.mycheckbox
-        {
+
+        label.label-checkbox input[type=radio]:checked+.item-media i.mycheckbox {
             background: url('imgs/check.png') no-repeat;
             width: 1.1rem;
             height: 1.1rem;
             background-size: 100% 100%;
         }
-        a.icon-shanchu, a.icon-bianji
-        {
+
+        a.icon-shanchu,
+        a.icon-bianji {
             color: #333;
+        }
+
+        .item-title-row {
+            /*padding-right: 10px;*/
+        }
+
+        .list-block .item-subtitle {
+            margin-right: -10px;
+        }
+
+        .list-block .item-after {
+            margin-right: 10px;
+        }
+
+        .list-block li {
+            padding-right: 10px;
         }
     </style>
 </head>
+
 <body>
     <!-- 你的html代码 -->
     <div class="page" id="page_address_list">
         <div class="content">
             <div class="list-block  media-list" id='con_address_list'>
-                <!-- <ul>
+                <ul>
                     <li>
-                    <a href='index.htm' class='external'>
-                        <label class="label-checkbox item-content">
+                        <a href='index.htm' class='external'>
+                            <label class="label-checkbox item-content">
                             <input type="radio" name="my-address" checked="checked" />
                             <div class="item-media">
                                 <i class="icon mycheckbox"></i>
@@ -58,8 +77,7 @@
                             </div>
                         </label></a>
                     </li>
-                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right">删除</a> <a
-                        class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
+                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right">删除</a> <a class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
                 </ul>
                 <p>
                 </p>
@@ -82,9 +100,8 @@
                             </div>
                         </label>
                     </li>
-                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right">删除</a> <a
-                        class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
-                </ul>-->
+                    <li style="height: 2rem;"><a class="icon iconfont icon-shanchu  pull-right">删除</a> <a class="icon iconfont icon-bianji pull-right" href="#">编辑 </a></li>
+                </ul>
             </div>
             <div class="content-block">
                 <p>
@@ -92,16 +109,17 @@
             </div>
         </div>
     </div>
-  
+
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
     <script src="js/main.js?v=211" type="text/javascript"></script>
     <script type="text/javascript">
-        $(function () {
-            get_addr_list();
-            
+        $(function() {
+            //get_addr_list();
+
         })
     </script>
 </body>
+
 </html>
