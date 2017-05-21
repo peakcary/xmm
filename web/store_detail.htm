@@ -1,0 +1,122 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>店铺信息</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .seqnum
+        {
+            display: inline-block;
+            width: 1rem;
+            background: #28abe3;
+            color: #fff;
+            font-size: 0.8rem;
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            border-radius: 50% 50%;
+        }
+        .myitem-inner
+        {
+            margin: 0 0.2rem !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page" id="page_rzstore">
+        <!-- 这里是页面内容区 -->
+        <div class="page-index">
+            <div class="content">
+                <div class="list-block media-list">
+                    <ul>
+                        <li id="li_store_basic"><a class="item-link item-content external" href="store_basic.htm">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    基本信息</div>
+                                <div class="item_content">
+                                </div>
+                            </div>
+                        </a></li>
+                        <li id="li_store_dpdata"><a class="item-content  item-link external" href="store_dpdata.htm">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    店铺数据</div>
+                                <div class="item_content">
+                                </div>
+                            </div>
+                        </a></li>
+                        <li id="li_store_kqage"><a class="item-content  item-link external" href="store_kqage.htm">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    客群年龄段分布</div>
+                                <div class="item_content">
+                                </div>
+                            </div>
+                        </a></li>
+                        <li id="li_store_sexbl"><a class="item-content  item-link external" href="store_sexbl.htm">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    性别比例</div>
+                                <div class="item_content">
+                                </div>
+                            </div>
+                        </a></li>
+                        <li id="li_store_dwjfb"><a class="item-content  item-link external" href="store_dwjfb.htm">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    淡旺季分布</div>
+                                <div class="item_content">
+                                </div>
+                            </div>
+                        </a></li>
+                        <li id="li_store_salepm"><a class="item-content  item-link external" href="store_salepm.htm">
+                            <div class="item-inner">
+                                <div class="item-title">
+                                    销售地区前十</div>
+                                <div class="item_content">
+                                </div>
+                            </div>
+                        </a></li>
+                    </ul>
+                </div>
+                <div class="content-block">
+                    <p>
+                        <a href="javascript:;" class="button button-fill button-big external" onclick="submit_newstore()">
+                            编辑</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=031" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        function submit_newstore() {
+            var storedata = localStorage.getItem("storedata");
+            save_shop(storedata);
+        }
+
+
+        $(function () {
+            var storeId = GetQueryString("id");
+            get_shop_detail(storeId);
+        })
+
+
+       
+    </script>
+</body>
+</html>

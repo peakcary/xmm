@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>填写PV/UV/发单量</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .seqnum
+        {
+            display: inline-block;
+            width: 1rem;
+            background: #28abe3;
+            color: #fff;
+            font-size: 0.8rem;
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            border-radius: 50% 50%;
+        }
+        .myitem-inner
+        {
+            margin: 0 0.2rem !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page" id="page_sendinfo_apuarr">
+        <div class="content">
+            <div class="list-block">
+                <div style="text-align: center;" id="apuarr_date">
+                </div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    PV</div>
+                                <div class="item-input" id="apuarr_pv">
+                                    <input type="number" placeholder="请输入PV" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    UV</div>
+                                <div class="item-input" id="apuarr_uv">
+                                    <input type="number" placeholder="请输入UV" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量</div>
+                                <div class="item-input" id="apuarr_total">
+                                    <input type="number" placeholder="请输入发单量" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="javascript:;" class="button button-fill button-big" onclick="save_apuarr()">
+                        保存</a></p>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=90559" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var showdate = unescape(GetQueryString('date'));
+            $('#apuarr_date').text(showdate);
+
+        })
+        function save_apuarr() {
+            var $apuarr_data = {};
+            $apuarr_data.id = GetQueryString('id');
+            $apuarr_data.total = $('#apuarr_total input').val();
+            $apuarr_data.pv = $('#apuarr_pv input').val();
+            $apuarr_data.uv = $('#apuarr_uv input').val();
+
+            activity_pudate(JSON.stringify($apuarr_data));
+
+        }
+    </script>
+</body>
+</html>

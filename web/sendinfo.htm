@@ -13,7 +13,6 @@
     <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
     <link href="css/main.css" rel="stylesheet" type="text/css" />
     <style type="text/css">
-      
         a.icon-shanchu, a.icon-bianji
         {
             color: #333;
@@ -68,15 +67,20 @@
             margin: 0.3rem;
             margin-left: 0;
         }
+        
+        #con_sendinfo_banner li img
+        {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <!-- 你的html代码 -->
-    <div class="page" id="maininfo">
+    <div class="page" id="page_sendinfo">
         <!-- 这里是页面内容区 -->
         <div class="page-index">
             <div class="content">
-                <div class="mylist-block">
+                <div class="mylist-block" id="con_sendinfo_title">
                     <div class="mytitle">
                         咪咪熊试用装申请</div>
                     <div class="mysubtitle">
@@ -89,12 +93,12 @@
                 <div class="mylist-block">
                     <div class="mystitle">
                         下载banner</div>
-                    <div class="imgcon">
+                    <div class="imgcon" id="con_sendinfo_banner">
                         <ul>
+                            <!-- <li><img src="imgs/1.jpg" /></li>
                             <li>&nbsp;</li>
                             <li>&nbsp;</li>
-                            <li>&nbsp;</li>
-                            <li>&nbsp;</li>
+                            <li>&nbsp;</li>-->
                         </ul>
                         <div class="clearfix">
                         </div>
@@ -103,21 +107,21 @@
                 <div class="list-block">
                     <div class="mystitle">
                         签收</div>
-                    <ul>
-                        <li id="listore"><a href="#selstore" class="item-link item-content">
+                    <ul id="con_sendinfo_reveive">
+                        <li id="li_ht"><a href="javascript:;" class="item-link item-content">
                             <div class="item-inner">
-                                <div class="item-title-row">
-                                    <div class="item-title">
-                                        合同</div>
-                                    <div class="item-after color-gray">
-                                    </div>
+                                <div class="item-title">
+                                    合同</div>
+                                <div class="item-after color-gray htstatus">
                                 </div>
                             </div>
                         </a></li>
-                        <li id="libanner"><a class="item-content  item-link" href="#">
+                        <li id="li_syz"><a class="item-content  item-link" href="#">
                             <div class="item-inner">
                                 <div class="item-title">
                                     试用装</div>
+                                <div class="item-after color-gray syzstatus">
+                                </div>
                             </div>
                         </a></li>
                     </ul>
@@ -125,7 +129,7 @@
                 <div class="list-block">
                     <div class="mystitle">
                         填写PV/UV/发单量</div>
-                    <ul>
+                    <ul id="con_sendinfo_fdl">
                         <li><a class="item-content  item-link" href="#">
                             <div class="item-inner">
                                 <div class="item-title">
@@ -143,14 +147,13 @@
                                 <div class="item-title">
                                     2016年10月21日</div>
                             </div>
-                            </a>
-                            </li>
+                        </a></li>
                     </ul>
                 </div>
                 <div class="list-block">
                     <div class="mystitle">
-                        填写发单量地区前十名</div>
-                    <ul>
+                        填写发单量地区前十名和客户性别比例</div>
+                    <ul id="con_sendinfo_dqpm">
                         <li><a class="item-content  item-link" href="#">
                             <div class="item-inner">
                                 <div class="item-title">
@@ -159,7 +162,7 @@
                         </a></li>
                     </ul>
                 </div>
-               <!-- <div class="list-block">
+                <!-- <div class="list-block">
                     <div class="mystitle">
                         上传视频和图片</div>
                     <ul>
@@ -189,55 +192,92 @@
                         </li>
                     </ul>
                 </div>-->
-                <div class="content-block">
+               <!-- <div class="content-block">
                     <p>
                         <a href="success.htm" class="button button-fill button-big">保存</a></p>
-                </div>
+                </div>-->
             </div>
         </div>
     </div>
-    <div class="page" id="selstore">
-        <div class="content">
-            <div class="list-block">
-                <ul>
-                    <li>
-                        <label class="label-checkbox item-content">
-                            <div class="item-inner">
-                                <div class="item-title">
-                                    能量数码天猫店</div>
-                                <input type="radio" name="my-radio" value="0" />
-                                <div class="item-media">
-                                    <i class="icon icon-form-checkbox"></i>
-                                </div>
-                            </div>
-                        </label>
-                    </li>
-                    <li>
-                        <label class="label-checkbox item-content">
-                            <div class="item-inner">
-                                <div class="item-title">
-                                    何塞机械键盘</div>
-                                <input type="radio" name="my-radio" value="1" />
-                                <div class="item-media">
-                                    <i class="icon icon-form-checkbox"></i>
-                                </div>
-                            </div>
-                        </label>
-                    </li>
-                </ul>
-            </div>
-            <div class="content-block">
-                <p>
-                    <a href="#sendinfo" class="button
-    button-fill button-big back" onclick="setStore()">确定</a></p>
-            </div>
-        </div>
-    </div>
-   
-   
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
-   
+    <script src="js/main.js?v=138" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var aid = GetQueryString('id');
+            get_distributed_detail(aid);
+
+
+
+
+
+
+            //绑定合同菜单
+            $("#li_ht .item-link").click(function () {
+
+                if ($('#con_sendinfo_reveive .htstatus').text() != '') {
+                    return;
+                }
+
+                var buttons1 = [
+        {
+            text: '是否收到合同',
+            label: true
+        },
+        {
+            text: '已收到合同',
+            bold: true,
+            color: 'default',
+            onClick: function () {
+                activity_sign_up(aid, 'receive1');
+            }
+        }
+      ];
+                var buttons2 = [
+        {
+            text: '取消',
+            bg: 'default'
+        }
+      ];
+                var groups = [buttons1, buttons2];
+                $.actions(groups);
+
+            });
+
+            //绑定试用装菜单
+            $("#li_syz .item-link").click(function () {
+                if ($('#con_sendinfo_reveive .syzstatus').text() != '') {
+                    return;
+                }
+
+                var buttons1 = [
+        {
+            text: '是否收到试用装',
+            label: true
+        },
+        {
+            text: '已收到试用装',
+            bold: true,
+            color: 'default',
+            onClick: function () {
+                activity_sign_up(aid, 'receive2');
+            }
+        }
+      ];
+                var buttons2 = [
+        {
+            text: '取消',
+            bg: 'default'
+        }
+      ];
+                var groups = [buttons1, buttons2];
+                $.actions(groups);
+
+            });
+
+        })
+    
+    </script>
 </body>
 </html>

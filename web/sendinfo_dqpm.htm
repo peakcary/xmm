@@ -1,0 +1,388 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>填写发单量地区前十名和客户性别比例</title>
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="stylesheet" href="light7/css/light7.min.css" />
+    <link rel="stylesheet" href="light7/css/light7-swiper.min.css" />
+    <link href="css/font/iconfont.css" rel="stylesheet" type="text/css" />
+    <link href="css/main.css" rel="stylesheet" type="text/css" />
+    <style type="text/css">
+        .seqnum
+        {
+            display: inline-block;
+            width: 1rem;
+            background: #28abe3;
+            color: #fff;
+            font-size: 0.8rem;
+            height: 1rem;
+            line-height: 1rem;
+            text-align: center;
+            border-radius: 50% 50%;
+        }
+        .myitem-inner
+        {
+            margin: 0 0.2rem !important;
+            padding: 0 !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- 你的html代码 -->
+    <div class="page" id="page_sendinfo_dqpm">
+        <div class="content">
+            <div class="list-block">
+                <div style="text-align: center;">
+                    第1名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a1'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b1'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;">
+                    第2名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a2'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b2'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div4">
+                    第3名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a3'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b3'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div7">
+                    第4名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a4'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b4'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div10">
+                    第5名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a5'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b5'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div13">
+                    第6名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a6'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b6'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div16">
+                    第7名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a7'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b7'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div19">
+                    第8名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a8'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b8'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div22">
+                    第9名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a9'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b9'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div25">
+                    第10名</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    选择地区</div>
+                                <div class="item-input" id='sendinfo_dqpm_a10'>
+                                    <input type="text" placeholder="省/市" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    发单量占比</div>
+                                <div class="item-input" id='sendinfo_dqpm_b10'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <div style="text-align: center;" id="Div28">
+                    客户性别比例</div>
+                <ul>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    男</div>
+                                <div class="item-input" id='sendinfo_sex_1'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="item-content">
+                            <div class="item-inner">
+                                <div class="item-title label">
+                                    女</div>
+                                <div class="item-input" id='sendinfo_sex_2'>
+                                    <input type="number" placeholder="%" style="text-align: right">
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="content-block">
+                <p>
+                    <a href="javascript:;" class="button button-fill button-big" onclick="save_dqpm_sex()">
+                        保存</a></p>
+            </div>
+        </div>
+    </div>
+    <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
+    <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
+    <script src="js/main.js?v=093" type="text/javascript"></script>
+    <script type="text/javascript">
+
+        function save_dqpm_sex() {
+            var $dqpm_sex_data = {};
+            $dqpm_sex_data.id = GetQueryString('id');
+            $dqpm_sex_data.sex1 = $('#sendinfo_sex_1 input').val();
+            $dqpm_sex_data.sex2 = $('#sendinfo_sex_2 input').val();
+            //省份
+            var array_z1 = new Array();
+            array_z1.push($('#sendinfo_dqpm_a1 input').val());
+            array_z1.push($('#sendinfo_dqpm_a2 input').val());
+            array_z1.push($('#sendinfo_dqpm_a3 input').val());
+            array_z1.push($('#sendinfo_dqpm_a4 input').val());
+            array_z1.push($('#sendinfo_dqpm_a5 input').val());
+            array_z1.push($('#sendinfo_dqpm_a6 input').val());
+            array_z1.push($('#sendinfo_dqpm_a7 input').val());
+            array_z1.push($('#sendinfo_dqpm_a8 input').val());
+            array_z1.push($('#sendinfo_dqpm_a9 input').val());
+            array_z1.push($('#sendinfo_dqpm_a10 input').val());
+
+            $dqpm_sex_data.z1 = array_z1;
+
+            //城市
+            var array_z2 = new Array();
+            for (var i = 0; i < 10; i++) {
+                array_z2.push('00');
+            }
+
+            $dqpm_sex_data.z2 = array_z2;
+
+            //比例
+            var array_value = new Array();
+            array_value.push($('#sendinfo_dqpm_b1 input').val());
+            array_value.push($('#sendinfo_dqpm_b2 input').val());
+            array_value.push($('#sendinfo_dqpm_b3 input').val());
+            array_value.push($('#sendinfo_dqpm_b4 input').val());
+            array_value.push($('#sendinfo_dqpm_b5 input').val());
+            array_value.push($('#sendinfo_dqpm_b6 input').val());
+            array_value.push($('#sendinfo_dqpm_b7 input').val());
+            array_value.push($('#sendinfo_dqpm_b8 input').val());
+            array_value.push($('#sendinfo_dqpm_b9 input').val());
+            array_value.push($('#sendinfo_dqpm_b10 input').val());
+
+            $dqpm_sex_data.value = array_value;
+
+            activity_sex_tops(JSON.stringify($dqpm_sex_data));
+
+        }
+    </script>
+</body>
+</html>

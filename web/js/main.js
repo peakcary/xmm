@@ -145,6 +145,34 @@ function complete_distributed_list(pageno) {
         }
     });
 }
+//派发详细信息
+function get_distributed_detail(aid) {
+    var api = '/wx/activity/distributed_detail';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { id: aid },
+        success: function (result) {
+
+            if (result.code == 0) {
+                var $data = result.data;
+
+                var jsondata = JSON.stringify($data);
+                //存储本地
+                //localStorage.setItem("sendinfo", jsondata);
+
+                render_distributed_detail(jsondata);
+
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=send.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
 
 
 //获取用户店铺列表
@@ -243,6 +271,51 @@ function shop_cate_list() {
         success: function (result) {
             alert(JSON.stringify(result));
             if (result.code == 0) {
+
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=my.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//获取主营类目名称,id  主营类目列表中的ID
+function shop_cate_list(id) {
+    var api = '/wx/member/shop_cate_name';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { id: id },
+        success: function (result) {
+            alert(JSON.stringify(result));
+            if (result.code == 0) {
+
+            } else if (result.code == '4001') {
+                window.location.href = 'login.htm?redirect=my.htm';
+            }
+            else {
+                alert(result.msg);
+            }
+        }
+    });
+}
+
+//获取用户店铺详情
+function get_shop_detail(id) {
+    var api = '/wx/member/shop_detail';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { id: id },
+        success: function (result) {
+            alert(JSON.stringify(result));
+            if (result.code == 0) {
+                init_storeinfo(JSON.stringify(result.data));
 
             } else if (result.code == '4001') {
                 window.location.href = 'login.htm?redirect=my.htm';
@@ -650,6 +723,67 @@ function up_set_pass(pwd) {
     });
 }
 
+
+//更新合同或试用装确定签收
+function activity_sign_up(id, type) {
+    var api = '/wx/activity/c_sign_up';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: { id: id, type: type },
+        success: function (result) {
+            if (result.code == 0) {
+                if (type == 'receive1') {
+                    $('#con_sendinfo_reveive .htstatus').html("已签收");
+                } else {
+                    $('#con_sendinfo_reveive .syzstatus').html("已签收");
+                }
+            } else {
+                $.alert(result.msg);
+            }
+        }
+    });
+}
+
+//更新PV,UV,发单量数据
+function activity_pudate(data) {
+    var api = '/wx/activity/pudate';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: JSON.parse(data),
+        success: function (result) {
+            if (result.code == 0) {
+                window.history.go(-1);
+                window.location.reload();
+            } else {
+                $.alert(result.msg);
+            }
+        }
+    });
+}
+//更新发单量地区前十名,男女比例
+function activity_sex_tops(data) {
+    var api = '/wx/activity/sex_tops';
+    $.ajax({
+        type: 'post',
+        url: domain + api,
+        dataType: 'json',
+        data: JSON.parse(data),
+        success: function (result) {
+            if (result.code == 0) {
+                window.history.go(-1);
+                window.location.reload();
+            } else {
+                $.alert(result.msg);
+            }
+        }
+    });
+}
+
+//展示活动详情
 function render_act_detail(data) {
     var $data = JSON.parse(data);
     var html = '';
@@ -666,6 +800,96 @@ function render_act_detail(data) {
     $('#con_act_detail').html(html);
 }
 
+function render_distributed_detail(data) {
+    var $data = JSON.parse(data)[0];
+    var html = '';
+    //填充标题数据
+    html += '<div class="mytitle">' + $data.name + '</div>'
+                    + '<div class="mysubtitle">' + $data.t_start + ' - ' + $data.t_end + '</div>'
+                    + '<div class="content-block">'
+                    + '    <p style="width: 42%; margin: 0 auto;">'
+                      + '      <a href="#" class="button button-round">查看详细信息</a></p></div>';
+    $('#con_sendinfo_title').html(html);
+
+    //填充下载banner
+    var lisban = $data.ban;
+    if (lisban != undefined && lisban != null) {
+        html = '<ul>';
+        for (var i = 0; i < lisban.length; i++) {
+            html += '<li><img src="' + domain + lisban[i] + '"/></li>';
+        }
+        html += '</ul>';
+        html += '<div class="clearfix"></div>';
+
+        $('#con_sendinfo_banner').html(html);
+    }
+    //合同签收
+    var htflag = $data.receive1;
+    var htstatus = '';
+    $('#con_sendinfo_reveive .htstatus').html('');
+
+    if (htflag == '0') {//申请中
+        htstatus = '申请中';
+    } else if (htflag == '1') {//已发货
+        htstatus = '已发货';
+    } else if (htflag == '2') {//已签收
+        htstatus = '已签收';
+        $('#con_sendinfo_reveive .htstatus').html(htstatus);
+    }
+
+    //试用装签收
+    var syzflag = $data.receive2;
+    var syzstatus = '';
+    $('#con_sendinfo_reveive .syzstatus').html('');
+    if (syzflag == '0') {//申请中
+        syzstatus = '申请中';
+    } else if (syzflag == '1') {//已发货
+        syzstatus = '已发货';
+    } else if (syzflag == '2') {//已签收
+        syzstatus = '已签收';
+        $('#con_sendinfo_reveive .syzstatus').html(syzstatus);
+    }
+
+
+    //PV/UV发单量
+    var fdldata = $data.apuarr;
+    html = '';
+    for (var i = 0; i < fdldata.length; i++) {
+        html += '<li><a class="item-content  item-link external" href="';
+        if (fdldata[i].is_fill == 1) {
+            html += 'javascript:;';
+        } else {
+            html += 'sendinfo_apuarr.htm?id=' + fdldata[i].id + '&date=' + escape(fdldata[i].createtime);
+        }
+        html += '"><div class="item-inner">'
+                              + '  <div class="item-title">' + fdldata[i].createtime + '</div>';
+        if (fdldata[i].is_fill == 1) {//已编辑
+            html += '<div class="item-after color-gray syzstatus">已编辑</div>';
+        }
+
+        html += '</div></a></li>';
+    }
+    $('#con_sendinfo_fdl').html(html);
+
+    //地区排名
+    var dqpmdata = $data.topsarr;
+    html = '<li><a class="item-content  item-link external" href="'
+    if (dqpmdata.is_fill == 1) {
+        html += 'javascript:;';
+    } else {
+        html += 'sendinfo_dqpm.htm?id=' + $data.id;
+    }
+    html += '"><div class="item-inner">'
+                              + '  <div class="item-title">' + dqpmdata.createtime + '</div>';
+    if (dqpmdata.is_fill == 1) {//已编辑
+        html += '<div class="item-after color-gray syzstatus">已编辑</div>';
+    }
+
+    html += '</div></a></li>';
+    $('#con_sendinfo_dqpm').html(html);
+}
+
+
 //展示我的店铺
 function render_mystore_shoplist(data) {
     var $data = JSON.parse(data);
@@ -673,25 +897,131 @@ function render_mystore_shoplist(data) {
     var html_yrz = '';
     for (var i = 0; i < $data.length; i++) {
         if ($data[i].status == "1") { //审核中
-            html_rzz += '<li class="item-content">'
+            html_rzz += '<li><a class="item-content item-link external" href="store_detail.htm?id=' + $data[i].id + '">'
                         + '<div class="item-inner">'
-                           + ' <div class="item-title-row">'
-                              + '  <div class="item-title">'
-                                + '    <span>' + $data[i].shop_name + '</span><a href="#" class="button button-round" style="background: #ff9700;'
-                                 + '       display: inline-block; color: #fff; border: none;"><span class="icon iconfont icon-shenhezhong"></span>'
-                                   + '     审核中</a></div></div></div></li>'
+                         + '   <div class="item-title">' + $data[i].shop_name
+                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-shenhezhong"></span>'
+                          + '          审核中</span></div></div></a></li>';
         } else if ($data[i].status == "2") {//已入驻
-            html_yrz += '<li class="item-content">'
+            html_yrz += '<li><a class="item-content item-link external" href="store_detail.htm?id=' + $data[i].id + '">'
                         + '<div class="item-inner">'
-                            + '<div class="item-title-row">'
-                               + ' <span class="item-title">' + $data[i].shop_name + '</span><a href="#" class="button button-round" style="background: #28abe3;'
-                                   + ' display: inline-block; color: #fff; border: none;"><span class="icon iconfont icon-yiruzhu"></span>'
-                                   + ' 已入驻</a></div></div></li>';
+                         + '   <div class="item-title">' + $data[i].shop_name
+                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-yiruzhu"></span>'
+                          + '          已入驻</span></div></div></a></li>';
         }
     }
 
     $('#con_store_rzz').html(html_rzz);
     $('#con_store_yrz').html(html_yrz);
+}
+//初始化店铺数据
+function init_storeinfo(storedata) {
+
+    var $storedata = JSON.parse(storedata);
+    //基本信息
+    if ($storedata.shop_name != undefined && $storedata.shop_name != null && $.trim($storedata.shop_name) != '') {
+        var html = '';
+        html += "<div>" + $storedata.shop_name + "</div>";
+        html += "<div>" + $storedata.shop_url + "</div>";
+        html += "<div>" + $storedata.company + "</div>";
+        html += "<div>" + $storedata.create_at + " 开店</div>";
+        html += "<div>所在地 " + $storedata.zoneinfo + "</div>";
+        html += "<div>受众为 " + $storedata.customer_sex + "</div>";
+        html += "<div>店铺排名第" + $storedata.rank + "</div>";
+        html += "<div>宝贝" + $storedata.goods + "件</div>";
+        html += "<div>主营：" + $storedata.cate_id + "</div>";
+
+        $('#li_store_basic .item_content').html(html);
+    }
+
+    //店铺数据
+    if ($storedata.per_ct != undefined && $storedata.per_ct != null && $.trim($storedata.per_ct) != '') {
+        var html = '';
+
+        html += "<div>客单价" + $storedata.per_ct + "元</div>";
+        html += "<div>月均浏览量" + $storedata.m_pv + "人次</div>";
+        html += "<div>月独立访客数" + $storedata.m_uv + "人</div>";
+        html += "<div>月均销量" + $storedata.m_sales + "件</div>";
+        html += "<div>月均发单量 " + $storedata.m_trades + "件</div>";
+
+        $('#li_store_dpdata .item_content').html(html);
+    }
+
+    //客群年龄段分布
+    if ($storedata.c_age1 != undefined && $storedata.c_age1 != null && $.trim($storedata.c_age1) != '') {
+        var html = '';
+
+        html += "<div>18-25岁：" + $storedata.c_age1 + "%</div>";
+        html += "<div>26-30岁：" + $storedata.c_age2 + "%</div>";
+        html += "<div>31-35岁：" + $storedata.c_age3 + "%</div>";
+        html += "<div>36-40岁：" + $storedata.c_age4 + "%</div>";
+        html += "<div>41-50岁：" + $storedata.c_age5 + "%</div>";
+        html += "<div>大于50岁：" + $storedata.c_age6 + "%</div>";
+
+        $('#li_store_kqage .item_content').html(html);
+    }
+
+    //性别比例
+    if ($storedata.c_sex_json != undefined && $storedata.c_sex_json != null && $.trim($storedata.c_sex_json) != '') {
+        var html = '';
+        var array = $storedata.c_sex_json;
+        html += "<div>男：" + array[0] + "%</div>";
+        html += "<div>女：" + array[1] + "%</div>";
+        html += "<div>未知：" + array[2] + "%</div>";
+
+        $('#li_store_sexbl .item_content').html(html);
+    }
+
+    //淡旺季分布
+    if ($storedata.season_json != undefined && $storedata.season_json != null && $.trim($storedata.season_json) != '') {
+        var html = '';
+        var array = $storedata.season_json;
+        var array_1 = new Array(); //旺季
+        var array_2 = new Array(); //淡季
+
+        for (var i = 0; i < array.length; i++) {
+            if (i == 0) {
+                if (array[i] == "1") {
+                    array_1.push("春");
+                } else {
+                    array_2.push("春");
+                }
+            } else if (i == 1) {
+                if (array[i] == "1") {
+                    array_1.push("夏");
+                } else {
+                    array_2.push("夏");
+                }
+            } else if (i == 2) {
+                if (array[i] == "1") {
+                    array_1.push("秋");
+                } else {
+                    array_2.push("秋");
+                }
+            } else if (i == 3) {
+                if (array[i] == "1") {
+                    array_1.push("冬");
+                } else {
+                    array_2.push("冬");
+                }
+            }
+        }
+        html += "<div>旺季：" + array_1.join('、') + "</div>";
+        html += "<div>淡季：" + array_2.join('、') + "</div>";
+
+        $('#li_store_dwjfb .item_content').html(html);
+    }
+    //销售地区前十
+    if ($storedata.a1 != undefined && $storedata.a1 != null && $.trim($storedata.a1) != '') {
+        var html = '';
+        var array_a1 = $storedata.a1;
+        var array_value = $storedata.value;
+        for (var i = 0; i < array_a1.length; i++) {
+            html += "<div>" + (i + 1) + "、" + array_a1[i] + "：" + array_value[i] + "%</div>";
+        }
+
+        $('#li_store_salepm .item_content').html(html);
+    }
 }
 
 
