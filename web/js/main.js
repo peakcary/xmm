@@ -808,7 +808,7 @@ function render_distributed_detail(data) {
                     + '<div class="mysubtitle">' + $data.t_start + ' - ' + $data.t_end + '</div>'
                     + '<div class="content-block">'
                     + '    <p style="width: 42%; margin: 0 auto;">'
-                      + '      <a href="#" class="button button-round">查看详细信息</a></p></div>';
+                      + '      <a href="sendinfo_detail.htm?id=' + $data.id + '" class="button button-round">查看详细信息</a></p></div>';
     $('#con_sendinfo_title').html(html);
 
     //填充下载banner
@@ -900,14 +900,16 @@ function render_mystore_shoplist(data) {
             html_rzz += '<li><a class="item-content item-link external" href="store_detail.htm?id=' + $data[i].id + '">'
                         + '<div class="item-inner">'
                          + '   <div class="item-title">' + $data[i].shop_name
-                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-shenhezhong"></span>'
-                          + '          审核中</span></div></div></a></li>';
+//                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-shenhezhong"></span>'
+//                          + '          审核中</span>'
+                          +'</div></div></a></li>';
         } else if ($data[i].status == "2") {//已入驻
             html_yrz += '<li><a class="item-content item-link external" href="store_detail.htm?id=' + $data[i].id + '">'
                         + '<div class="item-inner">'
                          + '   <div class="item-title">' + $data[i].shop_name
-                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-yiruzhu"></span>'
-                          + '          已入驻</span></div></div></a></li>';
+//                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-yiruzhu"></span>'
+//                          + '          已入驻</span>'
+                          +'</div></div></a></li>';
         }
     }
 
