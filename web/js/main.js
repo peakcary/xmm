@@ -146,7 +146,7 @@ function complete_distributed_list(pageno) {
     });
 }
 //派发详细信息
-function get_distributed_detail(aid) {
+function get_distributed_detail(aid, flag) {
     var api = '/wx/activity/distributed_detail';
     $.ajax({
         type: 'post',
@@ -161,8 +161,11 @@ function get_distributed_detail(aid) {
                 var jsondata = JSON.stringify($data);
                 //存储本地
                 //localStorage.setItem("sendinfo", jsondata);
-
-                render_distributed_detail(jsondata);
+                if (flag == 1) {
+                    render_sendinfo_detail(jsondata);
+                } else {
+                    render_distributed_detail(jsondata);
+                }
 
             } else if (result.code == '4001') {
                 window.location.href = 'login.htm?redirect=send.htm';
@@ -757,7 +760,7 @@ function activity_pudate(data) {
         success: function (result) {
             if (result.code == 0) {
                 window.history.go(-1);
-               
+
             } else {
                 $.alert(result.msg);
             }
@@ -775,7 +778,7 @@ function activity_sex_tops(data) {
         success: function (result) {
             if (result.code == 0) {
                 window.history.go(-1);
-               
+
             } else {
                 $.alert(result.msg);
             }
@@ -800,6 +803,53 @@ function render_act_detail(data) {
     $('#con_act_detail').html(html);
 }
 
+function render_sendinfo_detail(data) {
+    var $data = JSON.parse(data)[0];
+    var html = '';
+    //填充活动信息
+    html += '<div class="col-100"><img src="' + domain + $data.pic + '" style="width: 100%;" /></div>'
+                    + '<div class="col-100"><div class="content-padded">'
+                     + '<div>' + $data.name + '</div>'
+                      + '<div>' + $data.gift + '积分/份</div>'
+                           + ' <p class="color-gray">' + $data.remark + '</p></div></div>';
+
+    $('#detail_activeinfo').html(html);
+
+    //合作店铺
+    $('#detail_hzstore').text($data.shop);
+
+    //填充banner信息
+    html = '';
+    html += '<div><span>banner名称1</span>   ' + $data.banner1 + '</div>';
+    html += '<div><span>banner名称2</span>   ' + $data.banner2 + '</div>';
+    $('#detail_banner').html(html);
+
+    //申领数量
+    $('#detail_slnum').text($data.plan + '件');
+
+    //合同邮寄地址
+    html = '';
+    var $htaddr = $data.addr1;
+    html += '<div class="item-title-row">'
+                                  + '  <div class="item-title">联系人：' + $htaddr.user_name + '</div>'
+                                   + ' <div class="item-after">联系电话：' + $htaddr.user_phone + '</div>'
+                                + '</div>'
+                                + '<div class="item-subtitle">' + $htaddr.a1 + $htaddr.a2 + $htaddr.a3 + $htaddr.a4 + '</div>';
+    $('#detail_htaddr').html(html);
+
+    //试用装邮寄地址
+    html = '';
+    var $syzaddr = $data.addr2;
+    html += '<div class="item-title-row">'
+                                  + '  <div class="item-title">联系人：' + $syzaddr.user_name + '</div>'
+                                   + ' <div class="item-after">联系电话：' + $syzaddr.user_phone + '</div>'
+                                + '</div>'
+                                + '<div class="item-subtitle">' + $syzaddr.a1 + $syzaddr.a2 + $syzaddr.a3 + $syzaddr.a4 + '</div>';
+    $('#detail_syzaddr').html(html);
+
+}
+
+
 function render_distributed_detail(data) {
     var $data = JSON.parse(data)[0];
     var html = '';
@@ -808,7 +858,7 @@ function render_distributed_detail(data) {
                     + '<div class="mysubtitle">' + $data.t_start + ' - ' + $data.t_end + '</div>'
                     + '<div class="content-block">'
                     + '    <p style="width: 42%; margin: 0 auto;">'
-                      + '      <a href="sendinfo_detail.htm?id=' + $data.id + '" class="button button-round">查看详细信息</a></p></div>';
+                      + '      <a href="sendinfo_detail.htm?id=' + $data.id + '" class="button button-round external">查看详细信息</a></p></div>';
     $('#con_sendinfo_title').html(html);
 
     //填充下载banner
@@ -900,16 +950,16 @@ function render_mystore_shoplist(data) {
             html_rzz += '<li><a class="item-content item-link external" href="store_detail.htm?id=' + $data[i].id + '">'
                         + '<div class="item-inner">'
                          + '   <div class="item-title">' + $data[i].shop_name
-//                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-shenhezhong"></span>'
-//                          + '          审核中</span>'
-                          +'</div></div></a></li>';
+            //                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-shenhezhong"></span>'
+            //                          + '          审核中</span>'
+                          + '</div></div></a></li>';
         } else if ($data[i].status == "2") {//已入驻
             html_yrz += '<li><a class="item-content item-link external" href="store_detail.htm?id=' + $data[i].id + '">'
                         + '<div class="item-inner">'
                          + '   <div class="item-title">' + $data[i].shop_name
-//                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-yiruzhu"></span>'
-//                          + '          已入驻</span>'
-                          +'</div></div></a></li>';
+            //                         + '<span class="button button-round iconwarp"><span class="icon iconfont icon-yiruzhu"></span>'
+            //                          + '          已入驻</span>'
+                          + '</div></div></a></li>';
         }
     }
 
@@ -1215,7 +1265,11 @@ function render_distributed_list(pageno, data) {
     if (pageno > 1) {
         $('#con_send_list').append(html);
     } else {
-        $('#con_send_list').html(html);
+        if ($.trim(html) == '') {
+            $('#con_send_list').html('<div>暂无需要申请的数据！</div>');
+        } else {
+            $('#con_send_list').html(html);
+        }
     }
 
     loading = false;
