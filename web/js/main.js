@@ -757,7 +757,7 @@ function activity_pudate(data) {
         success: function (result) {
             if (result.code == 0) {
                 window.history.go(-1);
-                window.location.reload();
+               
             } else {
                 $.alert(result.msg);
             }
@@ -775,7 +775,7 @@ function activity_sex_tops(data) {
         success: function (result) {
             if (result.code == 0) {
                 window.history.go(-1);
-                window.location.reload();
+               
             } else {
                 $.alert(result.msg);
             }
