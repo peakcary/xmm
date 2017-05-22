@@ -40,59 +40,59 @@
             <div class="content">
                 <div class="list-block media-list">
                     <ul>
-                        <li id="li_store_basic"><a class="item-link item-content external" href="store_basic.htm">
+                        <li id="li_store_basic">
                             <div class="item-inner">
                                 <div class="item-title">
                                     基本信息</div>
                                 <div class="item_content">
                                 </div>
                             </div>
-                        </a></li>
-                        <li id="li_store_dpdata"><a class="item-content  item-link external" href="store_dpdata.htm">
+                        </li>
+                        <li id="li_store_dpdata">
                             <div class="item-inner">
                                 <div class="item-title">
                                     店铺数据</div>
                                 <div class="item_content">
                                 </div>
                             </div>
-                        </a></li>
-                        <li id="li_store_kqage"><a class="item-content  item-link external" href="store_kqage.htm">
+                        </li>
+                        <li id="li_store_kqage">
                             <div class="item-inner">
                                 <div class="item-title">
                                     客群年龄段分布</div>
                                 <div class="item_content">
                                 </div>
                             </div>
-                        </a></li>
-                        <li id="li_store_sexbl"><a class="item-content  item-link external" href="store_sexbl.htm">
+                        </li>
+                        <li id="li_store_sexbl">
                             <div class="item-inner">
                                 <div class="item-title">
                                     性别比例</div>
                                 <div class="item_content">
                                 </div>
                             </div>
-                        </a></li>
-                        <li id="li_store_dwjfb"><a class="item-content  item-link external" href="store_dwjfb.htm">
+                       </li>
+                        <li id="li_store_dwjfb">
                             <div class="item-inner">
                                 <div class="item-title">
                                     淡旺季分布</div>
                                 <div class="item_content">
                                 </div>
                             </div>
-                        </a></li>
-                        <li id="li_store_salepm"><a class="item-content  item-link external" href="store_salepm.htm">
+                       </li>
+                        <li id="li_store_salepm">
                             <div class="item-inner">
                                 <div class="item-title">
                                     销售地区前十</div>
                                 <div class="item_content">
                                 </div>
                             </div>
-                        </a></li>
+                        </li>
                     </ul>
                 </div>
                 <div class="content-block">
                     <p>
-                        <a href="javascript:;" class="button button-fill button-big external" onclick="submit_newstore()">
+                        <a href="javascript:;" class="button button-fill button-big external" onclick="edit_mystore()">
                             编辑</a></p>
                 </div>
             </div>
@@ -101,12 +101,12 @@
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
-    <script src="js/main.js?v=031" type="text/javascript"></script>
+    <script src="js/main.js?v=0321" type="text/javascript"></script>
     <script type="text/javascript">
 
-        function submit_newstore() {
-            var storedata = localStorage.getItem("storedata");
-            save_shop(storedata);
+        function edit_mystore() {
+            localStorage.setItem("storedata", localStorage.getItem("storedata_view"));
+            window.location.href = 'rzstore.htm?from=edit';
         }
 
 

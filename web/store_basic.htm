@@ -30,6 +30,10 @@
             margin: 0 0.2rem !important;
             padding: 0 !important;
         }
+        .lm-picker .col-first, .lm-picker .col-second
+        {
+             width:7rem;
+        }
     </style>
 </head>
 <body>
@@ -132,7 +136,7 @@
                                 <div class="item-title label">
                                     主营类目</div>
                                 <div class="item-input" id="basic_zylm">
-                                    <input type="text" placeholder="请输入主营类目" style="text-align: right">
+                                    <input type="text" placeholder="请输入主营类目"  style="text-align: right">
                                 </div>
                             </div>
                         </div>
@@ -149,10 +153,15 @@
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
-    <script src="js/main.js?v=1243" type="text/javascript"></script>
+    <script src="js/main.js?v=1189" type="text/javascript"></script>
+    <script src="js/category-picker.js?v=111" type="text/javascript"></script>
+    <!--<script src="js/lm-data.js" type="text/javascript"></script>
+    <script src="js/category-picker2.js" type="text/javascript"></script>-->
     <script type="text/javascript">
+
         $(function () {
             $("#basic_kddate input").calendar();
+
 
             //绑定合同菜单
             $("#item_sex").click(function () {
@@ -184,25 +193,7 @@
                 $.actions(groups);
 
             });
-
-
-            //            $("#basic_zylm input").picker({
-            //                toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button><h1 class="title">请选择主营类目</h1></header>',
-            //                cols: [
-            //    {
-            //        textAlign: 'center',
-            //        values: [1, 2, 3, 4, 5, 6, 7, 8],
-            //        displayValues: ['赵', '钱', '孙', '李', '周', '吴', '郑', '王']
-            //    },
-            //    {
-            //        textAlign: 'center',
-            //        values: ['杰伦', '磊', '明', '小鹏', '燕姿', '菲菲', 'Baby']
-            //    }
-            //  ]
-            //            });
-
-            //shop_cate_list();
-
+          
             var storedata = localStorage.getItem("storedata");
             var $storedata = JSON.parse(storedata);
             if ($storedata.shop_name != undefined && $storedata.shop_name != null && $.trim($storedata.shop_name) != '') {
@@ -220,8 +211,28 @@
                 //                $('#basic_sex input').val($storedata.customer_sex);
                 $('#basic_dppm input').val($storedata.rank);
                 $('#basic_spsl input').val($storedata.goods);
-                $('#basic_zylm input').val($storedata.cate_id);
+
+                //绑定经营类目
+                var tempdata = localStorage.getItem("categorydata");
+           
+                var $cateData = JSON.parse(tempdata);
+
+                for (var i = 0; i < $cateData.length; i++) {
+                    var $sublis = $cateData[i].sublist;
+                    for (var j = 0; j < $sublis.length; j++) {
+                        if ($storedata.cate_id == $sublis[j].id) {
+                            $('#basic_zylm input').val($cateData[i].label + ' ' + $sublis[j].label);
+                        }
+                    }
+                }
+
+
             }
+
+
+            //绑定商品类目
+            shop_cate_list();
+          
         })
 
 
@@ -242,12 +253,32 @@
             //storedata.customer_sex = $('#basic_sex input').val();
             storedata.rank = $('#basic_dppm input').val();
             storedata.goods = $('#basic_spsl input').val();
-            storedata.cate_id = $('#basic_zylm input').val();
+
+            //获取经营类目
+            var zylmtext = $('#basic_zylm input').val();
+            var zylmArray = zylmtext.split(' ');
+        
+            storedata.cate_id = '';
+            var tempdata = localStorage.getItem("categorydata");
+            var $cateData = JSON.parse(tempdata);
+
+            for (var i = 0; i < $cateData.length; i++) {
+                if (zylmArray[0] == $cateData[i].label) {
+                    var $sublis = $cateData[i].sublist; 
+                    for (var j = 0; j < $sublis.length; j++) {
+                        if (zylmArray[1] == $sublis[j].label) {
+                            storedata.cate_id = $sublis[j].id;
+                        }
+                    }
+                }
+            }
+          
+            //storedata.cate_id = $('#basic_zylm input').val();
 
             localStorage.setItem("storedata", JSON.stringify(storedata));
 
-            window.location.href = 'rzstore.htm';
-
+            //window.location.href = 'rzstore.htm';
+            window.history.go(-1);
         }
     </script>
 </body>

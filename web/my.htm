@@ -99,7 +99,7 @@
                             </div>
                         </div>
                     </a></li>
-                    <li id="li2"><a class="item-content  item-link external"  href="address_list.htm?type=my">
+                    <li id="li2"><a class="item-content  item-link external" href="address_list.htm?type=my">
                         <div class="item-inner">
                             <div class="item-title">
                                 地址管理</div>
@@ -162,7 +162,6 @@
             </div>
         </div>
     </div>
-    
     <div class="page phoneinfo" id="updatemm">
         <div class="content content-padded">
             <div class="item-title">
@@ -177,8 +176,7 @@
             </div>
         </div>
     </div>
-
-  <!--  <div class="page phoneinfo" id="myscore">
+    <!--  <div class="page phoneinfo" id="myscore">
         <div class="content">
             <div>
                 <img src="imgs/bgjf.png" style="width: 100%" />
@@ -203,6 +201,9 @@
         $(function () {
             var data = localStorage.getItem("logininfo");
             var $logininfo = JSON.parse(data);
+            if (data == undefined || data == null) {
+                window.location.href = 'login.htm?redirect=my.htm';
+            }
             $('.showmyphone').text($logininfo.mobile);
             $('#my_linkman').text($logininfo.user_nicename);
 

@@ -106,18 +106,30 @@
 
         function submit_newstore() {
             var storedata = localStorage.getItem("storedata");
+      
             save_shop(storedata);
         }
 
 
         $(function () {
             var storedata = localStorage.getItem("storedata");
+
             if (storedata == undefined || storedata == null) {
                 storedata = {};
                 storedata.id = "";
                 localStorage.setItem("storedata", JSON.stringify(storedata));
             } else {
+
                 var $storedata = JSON.parse(storedata);
+
+                //如果不是编辑并且当前缓存数据有id，则清空
+                if (GetQueryString("from") != "edit" && $storedata.id != undefined && $.trim($storedata.id) != '') {
+                    storedata = {};
+                    storedata.id = "";
+                    localStorage.setItem("storedata", JSON.stringify(storedata));
+                }
+
+
                 //基本信息
                 if ($storedata.shop_name != undefined && $storedata.shop_name != null && $.trim($storedata.shop_name) != '') {
                     var html = '';
@@ -138,7 +150,20 @@
 
                     html += "<div>店铺排名第" + $storedata.rank + "</div>";
                     html += "<div>宝贝" + $storedata.goods + "件</div>";
-                    html += "<div>主营：" + $storedata.cate_id + "</div>";
+
+                    //绑定经营类目
+                    var tempdata = localStorage.getItem("categorydata");
+                    var $cateData = JSON.parse(tempdata);
+
+                    for (var i = 0; i < $cateData.length; i++) {
+                        var $sublis = $cateData[i].sublist;
+                        for (var j = 0; j < $sublis.length; j++) {
+                            if ($storedata.cate_id == $sublis[j].id) {
+                                html += "<div>主营：" + $cateData[i].label + ' > ' + $sublis[j].label + "</div>";
+                            }
+                        }
+                    }
+
 
                     $('#li_store_basic .item_content').html(html);
                 }

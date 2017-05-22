@@ -111,9 +111,9 @@
             storedata.c_sex_json = array;
 
             localStorage.setItem("storedata", JSON.stringify(storedata));
-
-            window.location.href = 'rzstore.htm';
-
+           
+           // window.location.href = 'rzstore.htm';
+            window.history.go(-1);
         }
     </script>
 </body>

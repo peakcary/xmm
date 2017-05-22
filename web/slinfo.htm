@@ -35,13 +35,13 @@
 </head>
 <body>
     <!-- 你的html代码 -->
-    <div class="page page-test4" id="test6">
+    <div class="page page-test4" id="page_slinf">
         <!-- 这里是页面内容区 -->
         <div class="page-index">
             <div class="content">
                 <div class="content-block">
                     <p style="width: 42%; margin: 0 auto;">
-                        <a href="#" class="button button-round">咪咪熊试用装申请</a></p>
+                        <a href="#" class="button button-round" id="slinfo_name">咪咪熊试用装申请</a></p>
                 </div>
                 <div class="list-block media-list">
                     <ul>
@@ -295,7 +295,7 @@
     <script type='text/javascript' src='light7/js/jquery.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
-    <script src="js/main.js?v=1169" type="text/javascript"></script>
+    <script src="js/main.js?v=111169" type="text/javascript"></script>
     <script type="text/javascript">
 
         var tempdata = {};
@@ -303,8 +303,12 @@
         $(function () {
             var id = GetQueryString("id");
             tempdata.id = id;
+            tempdata.name = unescape(GetQueryString("name"));
+
+            $('#slinfo_name').text(tempdata.name);
 
             var $tempdata = GetQueryString('tempdata');
+
 
             if ($tempdata != undefined && $tempdata != null) {
 
@@ -335,6 +339,7 @@
 
             } else {
                 get_shop_list(0);
+
             }
 
         })

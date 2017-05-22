@@ -271,9 +271,15 @@ function shop_cate_list() {
         type: 'post',
         url: domain + api,
         dataType: 'json',
+        async: false,
         success: function (result) {
-            alert(JSON.stringify(result));
+
             if (result.code == 0) {
+                localStorage.setItem("categorydata", JSON.stringify(result.data));
+
+                $("#basic_zylm input").categoryPicker({
+                    toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button><h1 class="title">请选择主营类目</h1></header>'
+                });
 
             } else if (result.code == '4001') {
                 window.location.href = 'login.htm?redirect=my.htm';
@@ -286,7 +292,7 @@ function shop_cate_list() {
 }
 
 //获取主营类目名称,id  主营类目列表中的ID
-function shop_cate_list(id) {
+function shop_cate_name(id) {
     var api = '/wx/member/shop_cate_name';
     $.ajax({
         type: 'post',
@@ -316,8 +322,10 @@ function get_shop_detail(id) {
         dataType: 'json',
         data: { id: id },
         success: function (result) {
-            alert(JSON.stringify(result));
+
             if (result.code == 0) {
+                localStorage.setItem("storedata_view", JSON.stringify(result.data));
+
                 init_storeinfo(JSON.stringify(result.data));
 
             } else if (result.code == '4001') {
@@ -801,10 +809,48 @@ function render_act_detail(data) {
                          + '</div></div>'
                     + '</div>';
     $('#con_act_detail').html(html);
+
+    $('#btn_slsyz').click(function () {
+
+        var logindata = localStorage.getItem("logininfo");
+
+        if (logindata == undefined || logindata == null) {
+
+            window.location.href = 'login.htm?redirect=detail.htm?id=' + detailId;
+        } else {
+            //查询入驻店铺
+            var api = '/wx/member/shop_list';
+            $.ajax({
+                type: 'post',
+                url: domain + api,
+                dataType: 'json',
+                success: function (result) {
+
+                    if (result.code == 0) {
+                        var $data = result.data;
+                        var flag = 0;
+                        for (var i = 0; i < $data.length; i++) {
+                            if ($data[i].status == "2") {
+                                flag = 1;
+                                break;
+                            }
+                        }
+                        if (flag == 1) {
+                            window.location.href = 'slinfo.htm?id=' + $data.id + '&name=' + escape($data.name);
+                        } else {
+                            window.location.href = 'rzstore.htm';
+                        }
+                    } else {
+                        $.alert(result.msg);
+                    }
+                }
+            });
+        }
+    });
 }
 
 function render_sendinfo_detail(data) {
-    var $data = JSON.parse(data)[0];
+    var $data = JSON.parse(data);
     var html = '';
     //填充活动信息
     html += '<div class="col-100"><img src="' + domain + $data.pic + '" style="width: 100%;" /></div>'
@@ -851,7 +897,7 @@ function render_sendinfo_detail(data) {
 
 
 function render_distributed_detail(data) {
-    var $data = JSON.parse(data)[0];
+    var $data = JSON.parse(data);
     var html = '';
     //填充标题数据
     html += '<div class="mytitle">' + $data.name + '</div>'
@@ -978,10 +1024,33 @@ function init_storeinfo(storedata) {
         html += "<div>" + $storedata.company + "</div>";
         html += "<div>" + $storedata.create_at + " 开店</div>";
         html += "<div>所在地 " + $storedata.zoneinfo + "</div>";
-        html += "<div>受众为 " + $storedata.customer_sex + "</div>";
+        //        html += "<div>受众为 " + $storedata.customer_sex + "</div>";
+        html += "<div>受众为";
+        if ($storedata.customer_sex == 1) {
+            html += '男性';
+        } else if ($storedata.customer_sex == 2) {
+            html += '女性';
+        }
+        html += "</div>";
+
         html += "<div>店铺排名第" + $storedata.rank + "</div>";
         html += "<div>宝贝" + $storedata.goods + "件</div>";
-        html += "<div>主营：" + $storedata.cate_id + "</div>";
+
+        shop_cate_list();
+        //绑定经营类目
+        var tempdata = localStorage.getItem("categorydata");
+        var $cateData = JSON.parse(tempdata);
+
+        for (var i = 0; i < $cateData.length; i++) {
+            var $sublis = $cateData[i].sublist;
+            for (var j = 0; j < $sublis.length; j++) {
+                if ($storedata.cate_id == $sublis[j].id) {
+                    html += "<div>主营：" + $cateData[i].label + ' > ' + $sublis[j].label + "</div>";
+                }
+            }
+        }
+
+        // html += "<div>主营：" + $storedata.cate_id + "</div>";
 
         $('#li_store_basic .item_content').html(html);
     }

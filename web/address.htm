@@ -44,17 +44,17 @@
                             </div>
                         </div>
                     </li>
-                    <!--  <li>
+                    <li>
                         <div class="item-content">
                             <div class="item-inner">
                                 <div class="item-title label">
                                     选择地区</div>
-                                <div class="item-input">
-                                    <input type="text" placeholder="省/市/区">
+                                <div class="item-input" id="addr_ssq">
+                                    <input type="text" placeholder="省/市/区" class="city-picker" value="00 00 00">
                                 </div>
                             </div>
                         </div>
-                    </li>-->
+                    </li>
                     <li>
                         <div class="item-content">
                             <div class="item-inner">
@@ -80,6 +80,8 @@
     <script type='text/javascript' src='light7/js/light7.min.js' charset='utf-8'></script>
     <script type='text/javascript' src='light7/js/light7-swiper.min.js' charset='utf-8'></script>
     <script src="js/main.js?v=163" type="text/javascript"></script>
+    <script src="js/city-data.js?v=01" type="text/javascript"></script>
+    <script src="js/city-picker.js?v=01" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
             var initdata = GetQueryString("data");
@@ -87,7 +89,11 @@
                 var $data = JSON.parse(unescape(initdata));
                 $('#addr_username input').val($data.user_name);
                 $('#addr_phone input').val($data.user_phone);
+
+                $('#addr_ssq input').val($data.a1 + ' ' + $data.a2 + ' ' + $data.a3);
+
                 $('#addr_detailaddr input').val($data.a4);
+
                 $('#hid_addr_id').val($data.id);
             }
 
@@ -101,13 +107,22 @@
                 data.user_name = $('#addr_username input').val();
                 data.user_phone = $('#addr_phone input').val();
                 data.address = $('#addr_detailaddr input').val();
-                data.province = '00';
-                data.city = '00';
-                data.area = '00';
+
+                var selssq = $('#addr_ssq input').val();
+                var ssqarray = selssq.split(' ');
+                if (ssqarray.length == 3) {
+                    data.province = ssqarray[0];
+                    data.city = ssqarray[1];
+                    data.area = ssqarray[2];
+                }
                 data.id = $('#hid_addr_id').val();
 
                 save_addr(JSON.stringify(data), 0);
 
+            });
+
+            $("#addr_ssq input").cityPicker({
+                toolbarTemplate: '<header class="bar bar-nav"><button class="button button-link pull-right close-picker">确定</button><h1 class="title">选择地址</h1></header>'
             });
         })
     
