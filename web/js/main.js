@@ -816,7 +816,7 @@ function render_act_detail(data) {
 
         if (logindata == undefined || logindata == null) {
 
-            window.location.href = 'login.htm?redirect=detail.htm?id=' + detailId;
+            window.location.href = 'login.htm?redirect=detail.htm?id=' + $data.id;
         } else {
             //查询入驻店铺
             var api = '/wx/member/shop_list';
@@ -827,10 +827,10 @@ function render_act_detail(data) {
                 success: function (result) {
 
                     if (result.code == 0) {
-                        var $data = result.data;
+                        var $tempdata = result.data;
                         var flag = 0;
-                        for (var i = 0; i < $data.length; i++) {
-                            if ($data[i].status == "2") {
+                        for (var i = 0; i < $tempdata.length; i++) {
+                            if ($tempdata[i].status == "2") {
                                 flag = 1;
                                 break;
                             }

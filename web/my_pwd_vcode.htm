@@ -54,9 +54,9 @@
                 <table style="width: 80%; margin: 1rem auto 0;">
                     <tr>
                         <td>
-                            <input type="number" id="num1" />
+                            <input type="number" id="num1" style=" width:100%;" />
                         </td>
-                        <td>
+                       <!-- <td>
                             <input type="number" id="num2" />
                         </td>
                         <td>
@@ -70,7 +70,7 @@
                         </td>
                         <td>
                             <input type="number" id="num6" />
-                        </td>
+                        </td>-->
                     </tr>
                 </table>
             </div>
@@ -90,7 +90,7 @@
             $('#my_pwd_vcode .colphone').text(phone);
 
             $('#setpwd_second').click(function () {
-                var vcode = $('#num1').val() + $('#num2').val() + $('#num3').val() + $('#num4').val() + $('#num5').val() + $('#num6').val();
+                var vcode = $('#num1').val();// +$('#num2').val() + $('#num3').val() + $('#num4').val() + $('#num5').val() + $('#num6').val();
                 up_ver_vcode(vcode);
             });
         })
